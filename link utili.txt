@@ -8,3 +8,7 @@ Link figma per front-end:
 
 https://www.figma.com/files/team/1160223763734817657/FarmaciaCGZ?fuid=1157208375247920713
 
+
+Link per UML:
+
+https://lucid.app/documents#/dashboard?folder_id=home
