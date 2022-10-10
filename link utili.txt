@@ -4,6 +4,7 @@ https://docs.google.com/document/d/15yp8r1_R7_tTXk_B-SWaQBLSOdPLM-TIqHeC9TC089s/
 
 
 
-Link figma per il front-end:
+Link figma per front-end:
 
 https://www.figma.com/files/team/1160223763734817657/FarmaciaCGZ?fuid=1157208375247920713
+
