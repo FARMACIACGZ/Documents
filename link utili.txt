@@ -12,3 +12,11 @@ https://www.figma.com/files/team/1160223763734817657/FarmaciaCGZ?fuid=1157208375
 Link per UML:
 
 https://lucid.app/documents#/dashboard?folder_id=home
+
+
+Link MongoDB:
+
+
+
+Username: lucaciullo231120
+Password: JufsAXQf8jziGjr5
