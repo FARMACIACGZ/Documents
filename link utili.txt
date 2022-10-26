@@ -1,7 +1,9 @@
 Link google documenti del progetto:
 
-https://docs.google.com/document/d/15yp8r1_R7_tTXk_B-SWaQBLSOdPLM-TIqHeC9TC089s/edit#heading=h.nv0efvxw11mv
 
+
+Primo: https://docs.google.com/document/d/15yp8r1_R7_tTXk_B-SWaQBLSOdPLM-TIqHeC9TC089s/edit#heading=h.nv0efvxw11mv
+Secondo: https://docs.google.com/document/d/183nltlIrVslXyKnl_-mB4Dh8GPXY3NNf2nuXfLNSBBc/edit
 
 
 Link figma per front-end:
