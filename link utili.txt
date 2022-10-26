@@ -17,7 +17,11 @@ https://lucid.app/documents#/dashboard?folder_id=home
 
 
 Link MongoDB:
+https://cloud.mongodb.com/v2/63444deb1ea5c84558d44bec#clusters
 
+
+Link lucidChart:
+https://lucid.app/documents#/dashboard
 
 
 Username: lucaciullo231120
