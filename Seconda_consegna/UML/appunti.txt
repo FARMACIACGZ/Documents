@@ -1,0 +1,10 @@
+I due use case dei medici si possono mettere in uno solo, inserendo mostra mappa nel primo use case
+*eliminata la parte di recupero password descritta da Anastasia nei requisiti funzionali
+spid cliente anonimo o autenticato??
+
+(magari ci servono anche RF, autenticazione farmacie, registrazione medici e autenticazione medici perchè non li abbiamo)
+
+
+Un medico può essere anche un cliente? O si deve fare un altro account?
+
+Registrazione farmacista, che poi apre una farmacia
