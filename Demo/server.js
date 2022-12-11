@@ -9,7 +9,7 @@ app.use(express.json());
 app.use('/', routes);
 
 mongoose.connect(
-    process.env.MONGODB_URI,
+    process.env.DB_URL,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err) => {
         if (err) return console.log("Error: ", err);
