@@ -1,12 +1,16 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const app= express();
+const app2 = require('./app.js');
 
-
-const routes = require('./routes/utente');
+const utente = require('./app/utente');
+const farmaco = require('./app/farmaco');
 const mongoose = require('mongoose');
 app.use(express.json());
-app.use('/', routes);
+app.use('/utente', utente);
+app.use('/farmaco', farmaco);
+app.use(app2);
+
 
 mongoose.connect(
     process.env.DB_URL,

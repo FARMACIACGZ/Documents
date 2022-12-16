@@ -8,7 +8,7 @@
             "url":"https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:8000",
+    "host": "localhost:8080",
     "basePath": "/",
     "tags": [
         {
@@ -18,5 +18,50 @@
     ],
     "schemes": ["http"],
     "consumes":["application/json"],
-    "produces":["application/json"]
+    "produces":["application/json"],
+    "paths": {
+        "/utente": {
+            "get": {
+                "tags": ["utente"],
+                "summary": "Get all utenti in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utente"
+                        }
+                    }
+
+                }
+
+            }
+
+        },
+        "/utente/": {
+            "get": {
+                "tags": ["utente"],
+                "summary": "Get one utente in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utente"
+                        }
+                    }
+
+                }
+            }
+        }
+
+    },
+    "definitions": {
+        "utente/": {
+            "required": [
+                "name"
+            ],
+            "proprieties": {
+               
+            }
+        }
+    }
 }
