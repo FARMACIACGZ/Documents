@@ -8,7 +8,7 @@ const luogoSchema = new mongoose.Schema({
    descrizione: String,
    numero_di_telefono: String,    
    utenteId: String,
-   distanza: double
+   distanza: Number
 
 });
 

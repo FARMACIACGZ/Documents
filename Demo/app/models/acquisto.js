@@ -5,8 +5,10 @@ const acquistoSchema = new mongoose.Schema({
     
     data: Date,
     utenteId: String,
-    farmacia_possiede_farmacoId: String 
-
+    farmaciaId: String,
+    prezzo: Number,
+    effettuato: Boolean,
+    quantita: Number
 
 });
 

@@ -20,7 +20,7 @@
     "consumes":["application/json"],
     "produces":["application/json"],
     "paths": {
-        "/utente": {
+        "/app/utente": {
             "get": {
                 "tags": ["utente"],
                 "summary": "Get all utenti in system",
@@ -35,33 +35,14 @@
                 }
 
             }
+        
 
-        },
-        "/utente/": {
-            "get": {
-                "tags": ["utente"],
-                "summary": "Get one utente in system",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/utente"
-                        }
-                    }
 
-                }
-            }
         }
+        
+        
 
-    },
-    "definitions": {
-        "utente/": {
-            "required": [
-                "name"
-            ],
-            "proprieties": {
-               
-            }
-        }
     }
-}
+    
+    
+    }

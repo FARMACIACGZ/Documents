@@ -5,9 +5,10 @@ const possiedeSchema = new mongoose.Schema({
     
     
     scadenza: Date,
-    prezzo: double, 
-    quantita : int ,
-    farmacoID: String
+    prezzo: Number, 
+    quantita : Number ,
+    farmacoId: String,
+    luogoId: String
 
 
 });
