@@ -11,6 +11,7 @@ const luogo = require('./app/luogo');
 const acquisto = require('./app/acquisto');
 const ricetta = require('./app/ricetta');
 const chat = require('./app/chat');
+const authentication = require('./app/authentication');
 
 const mongoose = require('mongoose');
 app.use(express.json());
@@ -22,7 +23,7 @@ app.use('/farmacia', farmacia);
 app.use('/acquisto', acquisto);
 app.use('/ricetta', ricetta);
 app.use('/chat', chat);
-
+app.use('/api/v1/authentications', authentication);
 app.use(app2);
 
 

@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Utente = require('./models/utente'); // get our mongoose model
 
-
-
-router.get('/:id', async (req, res) => {
-    // https://mongoosejs.com/docs/api.html#model_Model.findById
-    let utente = await Utente.findById(req.params.id);
-    res.status(200).json({
+function modelloUtente  (utente) {
+    let a = {
         self: '/api/v1/utente/' + utente.id,
         name: utente.name,
         surname: utente.surname,
@@ -19,8 +15,47 @@ router.get('/:id', async (req, res) => {
         titolo_studio: utente.titolo_studio,
         indirizzo: utente.indirizzo,
         SPID: utente.SPID
-    });
+    };
+    return a;
+}
+
+router.get('/id/:id', async (req, res) => {
+    // https://mongoosejs.com/docs/api.html#model_Model.findById
+    let utente = await Utente.findById(req.params.id);
+    res.status(200).json(modelloUtente(utente));
+
 });
+
+
+
+
+const getOneUtente = (req, res) => {
+    let name = req.params.name; //get the utente name
+    console.log(name);
+
+    //find the specific utente with that name
+    Utente.findOne({ name: name }, (err, data) => {
+        if (err || !data) {
+            return res.status(200).json({ message: "Utente doesn't exist." });
+        }
+        else return res.json(data); //return the utente object if found
+    });
+};
+router.get('/name/:name', getOneUtente);
+
+const getAllMedici = (req, res) => {
+    let account_type = req.params.account_type; //get the utente name
+    console.log(account_type);
+
+    //find the specific utente with that name
+    Utente.find({ account_type: account_type }, (err, data) => {
+        if (err || !data) {
+            return res.status(200).json({ message: "Utente doesn't exist." });
+        }
+        else return res.json(data); //return the utente object if found
+    });
+};
+router.get('/:account_type', getAllMedici);
 
 router.get('', async (req, res) => {
     let utente;

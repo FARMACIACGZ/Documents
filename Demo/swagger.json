@@ -20,21 +20,22 @@
     "consumes":["application/json"],
     "produces":["application/json"],
     "paths": {
-        "/app/utente": {
+        "/utente": {
             "get": {
-                "tags": ["utente"],
+                "tags": ["Utente"],
                 "summary": "Get all utenti in system",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/utente"
+                            "$ref": "#/definitions/Utente"
                         }
                     }
 
                 }
 
             }
+            
         
 
 
@@ -42,7 +43,54 @@
         
         
 
+    },
+    "definitions": {
+        "Utente": {
+            "required": [
+                "name",
+                "surname",
+                "year",
+                "CF",
+                "email",
+                "password",
+                "account_type",
+                "titolo_studio",
+                "indirizzo",
+                "SPID"
+
+            ],
+            "proprieties": {
+                "name": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "date"
+                },
+                "CF": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "account_type": {
+                    "type": "String"
+                },
+                "titolo_studio": {
+                    "type": "String"
+                },
+                "indirizzo": {
+                    "type": "string"
+                },"SPID": {
+                    "type": "boolean"
+                }
+            }
+        }
     }
     
-    
-    }
+}
