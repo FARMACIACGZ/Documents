@@ -1,23 +1,54 @@
 const express = require('express');
-
 const router = express.Router();
+const Utente = require('./models/utente'); // get our mongoose model
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-router.post(''
-    , async function (req, res) {
-        let user = await Student.findOne({ email: req.body.email }).exec()
-        if (!user) res.json({ success: false, message: 'User not found' })
-        if (user.password != req.body.password) res.json({ success: false, message: 'Wrong password' })
-        // user authenticated -> create a token
-        var payload = { email: user.email, id: user._id, other_data: encrypted_in_the_token }
-        var options = { expiresIn: 86400 } // expires in 24 hours
-        var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
-        res.json({
-            success: true, message: 'Enjoy your token!'
-            ,
-            token: token, email: user.email, id: user._id, self: "api/v1/" + user._id
-        });
-    })
 
+// ---------------------------------------------------------
+// route to authenticate and get a new token
+// --------------------------------------------------------
+router.post('', async function (req, res) {
+
+
+    // find the user
+    let user = await Utente.findOne({
+        email: req.body.email
+    }).exec();
+
+    // user not found
+    if (!user) {
+        console.log("UTENTE NON TROVATO");
+        res.json({ success: false, message: 'Authentication failed. User not found.' });
+        return;
+    }
+
+    // check if password matches
+    if (user.password != req.body.password) {
+        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        return;
+    }
+
+    // if user is found and password is right create a token
+    var payload = {
+        email: user.email,
+        id: user._id
+        // other data encrypted in the token	
+    }
+    var options = {
+        expiresIn: 86400 // expires in 24 hours
+    }
+    var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
+
+    res.json({
+        success: true,
+        message: 'Enjoy your token!',
+        token: token,
+        email: user.email,
+        id: user._id,
+        self: "api/v1/" + user._id
+    });
+
+});
 
 
 
