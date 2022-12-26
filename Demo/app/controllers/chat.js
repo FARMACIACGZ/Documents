@@ -23,9 +23,9 @@ router.get('', async (req, res) => {
 
     chat = chat.map((dbEntry) => {
         return {
-            self: '/api/v1/chat/' + dbEntry.id,
-            utente: '/api/v1/utente/' + dbEntry.utenteId,
-            utenteMedico: '/api/v1/utenteMedico/' + dbEntry.utenteMedicoId,
+            self: '/chat/' + dbEntry.id,
+            mittente: '/utente/' + dbEntry.mittente,
+            destinatario: '/utenteMedico/' + dbEntry.destinatario,
             data: dbEntry.data,
             text_message: dbEntry.text_message
         };
@@ -93,7 +93,7 @@ router.post('', async (req, res) => {
 
     let chatId = chat.id;
 
-    res.location("/api/v1/chat/" + chatId).status(201).send();
+    res.location("/chat/" + chatId).status(201).send();
 });
 
 

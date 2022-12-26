@@ -23,9 +23,9 @@ router.get('', async (req, res) => {
 
     ricetta = ricetta.map((dbEntry) => {
         return {
-            self: '/api/v1/ricetta/' + dbEntry.id,
-            visita: '/api/v1/visita/' + dbEntry.visitaId,
-            farmacoId: '/api/v1/farmaco/' + dbEntry.farmacoId,
+            self: '/ricetta/' + dbEntry.id,
+            visita: '/visita/' + dbEntry.visitaId,
+            farmacoId: '/farmaco/' + dbEntry.farmacoId,
             data_ricetta: dbEntry.data_ricetta,
             quantita: dbEntry.quantita,
             dose:dbEntry.dose,
@@ -101,7 +101,7 @@ router.post('', async (req, res) => {
 
     let ricettaId = ricetta.id;
 
-    res.location("/api/v1/ricetta/" + ricettaId).status(201).send();
+    res.location("/ricetta/" + ricettaId).status(201).send();
 });
 
 

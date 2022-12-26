@@ -23,9 +23,9 @@ router.get('', async (req, res) => {
 
     farmacia = farmacia.map((dbEntry) => {
         return {
-            self: '/api/v1/farmacia/' + dbEntry.id,
-            farmaco: '/api/v1/farmaco/' + dbEntry.farmacoId,
-            luogo: '/api/v1/luogo/' + dbEntry.luogoId,
+            self: '/farmacia/' + dbEntry.id,
+            farmaco: '/farmaco/' + dbEntry.farmacoId,
+            luogo: '/luogo/' + dbEntry.luogoId,
             scadenza: dbEntry.scadenza,
             prezzo: dbEntry.prezzo,
             quantita: dbEntry.quantita,
@@ -95,7 +95,7 @@ router.post('', async (req, res) => {
 
     let farmaciaId = farmacia.id;
 
-    res.location("/api/v1/farmacia/" + farmaciaId).status(201).send();
+    res.location("/farmacia/" + farmaciaId).status(201).send();
 });
 
 

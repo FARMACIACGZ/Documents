@@ -23,13 +23,13 @@ router.get('', async (req, res) => {
 
    luogo = luogo.map((dbEntry) => {
       return {
-         self: '/api/v1/luogo/' + dbEntry.id,
-         utente: '/api/v1/utente/' + dbEntry.utenteId,
+         self: '/luogo/' + dbEntry.id,
+         utente: '/utente/' + dbEntry.utenteId,
          indirizzo: dbEntry.indirizzo,
          type: dbEntry.type,
          descrizione: dbEntry.descrizione,
          numero_di_telefono: dbEntry.numero_di_telefono,
-         distanza: dbEntry.distanza
+         distanza: dbEntry.distanza,
       };
    });
 
@@ -79,7 +79,7 @@ router.post('', async (req, res) => {
 
    let luogoId = luogo.id;
 
-   res.location("/api/v1/luogo/" + luogoId).status(201).send();
+   res.location("/luogo/" + luogoId).status(201).send();
 });
 
 

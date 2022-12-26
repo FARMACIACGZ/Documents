@@ -23,9 +23,9 @@ router.get('', async (req, res) => {
 
     visita = visita.map((dbEntry) => {
         return {
-            self: '/api/v1/visita/' + dbEntry.id,
-            utente: '/api/v1/utente/' + dbEntry.utenteId,
-            utenteMedico: '/api/v1/utenteMedico/' + dbEntry.utenteMedicoId,
+            self: '/visita/' + dbEntry.id,
+            utente: '/utente/' + dbEntry.utenteId,
+            utenteMedico: '/utenteMedico/' + dbEntry.utenteMedicoId,
             data: dbEntry.data,
             accettata: dbEntry.accettata
         };
@@ -93,7 +93,7 @@ router.post('', async (req, res) => {
 
     let visitaId = visita.id;
 
-    res.location("/api/v1/visita/" + visitaId).status(201).send();
+    res.location("/visita/" + visitaId).status(201).send();
 });
 
 

@@ -4,7 +4,7 @@ const Utente = require('../models/utente'); // get our mongoose model
 
 function modelloUtente  (utente) {
     let a = {
-        self: '/api/v1/utente/' + utente.id,
+        self: '/utente/' + utente.id,
         name: utente.name,
         surname: utente.surname,
         year: utente.year,
@@ -18,57 +18,10 @@ function modelloUtente  (utente) {
     };
     return a;
 }
-
-router.get('/id/:id', async (req, res) => {
-    // https://mongoosejs.com/docs/api.html#model_Model.findById
-    let utente = await Utente.findById(req.params.id);
-    res.status(200).json(modelloUtente(utente));
-
-});
-
-
-
-
-const getOneUtente = (req, res) => {
-    let name = req.params.name; //get the utente name
-    console.log(name);
-
-    //find the specific utente with that name
-    Utente.findOne({ name: name }, (err, data) => {
-        if (err || !data) {
-            return res.status(200).json({ message: "Utente doesn't exist." });
-        }
-        else return res.json(data); //return the utente object if found
-    });
-};
-router.get('/name/:name', getOneUtente);
-
-const getAllMedici = (req, res) => {
-    let account_type = req.params.account_type; //get the utente name
-    console.log(account_type);
-
-    //find the specific utente with that name
-    Utente.find({ account_type: account_type }, (err, data) => {
-        if (err || !data) {
-            return res.status(200).json({ message: "Utente doesn't exist." });
-        }
-        else return res.json(data); //return the utente object if found
-    });
-};
-router.get('/:account_type', getAllMedici);
-
-router.get('', async (req, res) => {
-    let utente;
-
-    if (req.query.email)
-        // https://mongoosejs.com/docs/api.html#model_Model.find
-        utente = await Utente.find({ email: req.query.email }).exec();
-    else
-        utente = await Utente.find().exec();
-
+function mapModelloUtente(utente, res){
     utente = utente.map((entry) => {
         return {
-            self: '/api/v1/utente/' + entry.id,
+            self: '/utente/' + entry.id,
             name: entry.name,
             surname: entry.surname,
             year: entry.year,
@@ -83,8 +36,59 @@ router.get('', async (req, res) => {
     });
 
     res.status(200).json(utente);
+
+}
+router.get('/:id', async (req, res) => {
+    // https://mongoosejs.com/docs/api.html#model_Model.findById
+    let utente = await Utente.findById(req.params.id);
+    res.status(200).json(modelloUtente(utente));
+
 });
 
+const getUtenteByName = (req, res) => {
+    let name = req.params.name; //get the tea name
+    console.log(name);
+
+    //find the specific tea with that name
+    Utente.findOne({ name: name }, (err, data) => {
+        if (err || !data) {
+            return res.json({ message: "Utente doesn't exist." });
+        }
+        else return res.json(data); //return the tea object if found
+    });
+};
+router.get('/name/:name', getUtenteByName);
+
+
+
+
+const getUtenteByType = (req, res) => {
+    let type = req.params.account_type; //get the tea name
+    console.log(type);
+
+    //find the specific tea with that name
+    Utente.findOne({ account_type: type }, (err, data) => {
+        if (err || !data) {
+            return res.json({ message: "Utente doesn't exist." });
+        }
+        else return res.json(data); //return the tea object if found
+    });
+};
+router.get('/tipo/:account_type', getUtenteByType);
+
+
+router.get('', async (req, res) => {
+    let utente;
+
+    if (req.query.email)
+        // https://mongoosejs.com/docs/api.html#model_Model.find
+        utente = await Utente.find({ email: req.query.email }).exec();
+    else
+        utente = await Utente.find().exec();
+    
+    mapModelloUtente(utente, res);
+    
+});
 router.post('', async (req, res) => {
 
     let utente = new Utente({
@@ -113,7 +117,7 @@ router.post('', async (req, res) => {
      * Link to the newly created resource is returned in the Location header
      * https://www.restapitutorial.com/lessons/httpmethods.html
      */
-    res.location("/api/v1/utente/" + utenteId).status(201).send();
+    res.location("/utente/" + utenteId).status(201).send();
 });
 
 

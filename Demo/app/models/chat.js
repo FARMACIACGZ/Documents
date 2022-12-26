@@ -4,8 +4,8 @@ const mongoose = require("mongoose"); //import mongoose
 const chatSchema = new mongoose.Schema({
 
     data: Date,
-    utenteId: String,
-    utenteMedicoId: String,
+    mittente: String,
+    destinatario: String,
     text_message: String
 
 

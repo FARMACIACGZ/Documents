@@ -23,9 +23,9 @@ router.get('', async (req, res) => {
 
     acquisto = acquisto.map((dbEntry) => {
         return {
-            self: '/api/v1/acquisto/' + dbEntry.id,
-            utente: '/api/v1/utente/' + dbEntry.utenteId,
-            farmacia_possiede_farmacoId: '/api/v1/farmacia/' + dbEntry.farmaciaId,
+            self: '/acquisto/' + dbEntry.id,
+            utente: '/utente/' + dbEntry.utenteId,
+            farmacia_possiede_farmacoId: '/farmacia/' + dbEntry.farmaciaId,
             data: dbEntry.data,
             prezzo: dbEntry.prezzo,
             effettuato: dbEntry.effettuato,
@@ -99,7 +99,7 @@ router.post('', async (req, res) => {
 
     let acquistoId = acquisto.id;
 
-    res.location("/api/v1/acquisto/" + acquistoId).status(201).send();
+    res.location("/acquisto/" + acquistoId).status(201).send();
 });
 
 

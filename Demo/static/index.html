@@ -4,22 +4,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <name>Document</name>
 </head>
 <body>
     <h1>FarmaciaCGZ</h1>
     <form action="/Ingegneria del software/progetto/Progettazione/Demo/app/controllers/utente.js" method="post" name="loginform" id="loginform">
         <span>Logged User:</span> <span id="loggedUser"></span>
-        <input name="email" value="mario.rossi@unitn.com" id="loginEmail" />
-        <input name="email" value="123" id="loginPassword" />
+        <input name="email" value="luca.ciullo@studenti.unitn.it" id="loginEmail" />
+        <input type="password" value="FarmaciaCGZ" id="loginPassword" />
         <button type="button" onclick="login()">LogIn</button>
     </form>
+
+
+
+
     <h2>Farmaci:</h2>
-    <ul id="farmaci"></ul>
+    <ul id="farmaco"></ul>
     <h2>Insert new farmaco:</h2>
-    <form action="api/v1/farmaci" method="post" name="farmacoform" id="farmacoform">
-        <input name="title" value="title" id="farmacoTitle" />
+    <form action="/farmaco" method="post" name="farmacoform" id="farmacoform">
+        Name:<input name="name" id="farmacoName" /><br>
+        Modalità d'uso: <input name="modalitauso" id="farmacoModalitauso" /><br>
+        Foglio illustrativo: <input name="foglio_illustrativo" id="farmacoFoglio_illustrativo" /><br>
+        
+
         <button type="button" onclick="insertFarmaco()">Insert new farmaco</button>
+    </form>
+    <h2>Pazienti:</h2>
+    <ul id="Utente"></ul>
+    <h2>Pazienti autenticati:</h2>
+    <ul id="Autenticato"></ul>
+    <h2>Medici:</h2>
+    <ul id="Medico"></ul>
+    <h2>Farmacisti:</h2>
+    <ul id="Farmacista"></ul>
+    <form action="/utente" method="post" name="utenteform" id="utenteform">
+        Name:<input name="utenteName" id="utenteName" /><br>
+        Cognome: <input  name="utenteSurname" id="utenteSurname" /><br>
+        Data di nascita: <input type="date" name="utenteYear" id="utenteYear" /><br>
+        Codice fiscale: <input name="utenteCF" id="utenteCF" /><br>
+        email:<input name="utenteEmail" id="utenteEmail" /><br>
+        Password: <input name="utentePassword" id="utentePassword" /><br>
+        Tipo di account: <input name="utenteAccount_type" id="utenteAccount_type" /><br>
+        Titolo di studio:<input name="utenteTitolo_studio" id="utenteTitolo_studio" /><br>
+        Indirizzo: <input name="utenteIndirizzo" id="utenteIndirizzo" /><br>
+        SPID: <input name="utenteSpid" id="utenteSpid" /><br>
+    
+        <button type="button" onclick="insertUtente()">Insert new utente</button>
+    </form>
+
+
+
+    <h2>Studi :</h2>
+    <ul id="luoghi"></ul>
+    <h2>Insert new luogo:</h2>
+    <form action="/utente" method="post" name="utenteform" id="utenteform">
+        Name:<input name="utenteName" id="utenteName" /><br>
+        Cognome: <input name="utenteSurname" id="utenteSurname" /><br>
+        Data di nascita: <input type="date" name="utenteYear" id="utenteYear" /><br>
+        Codice fiscale: <input name="utenteCF" id="utenteCF" /><br>
+        email:<input name="utenteEmail" id="utenteEmail" /><br>
+        Password: <input name="utentePassword" id="utentePassword" /><br>
+        Tipo di account: <input name="utenteAccount_type" id="utenteAccount_type" /><br>
+        Titolo di studio:<input name="utenteTitolo_studio" id="utenteTitolo_studio" /><br>
+        Indirizzo: <input name="utenteIndirizzo" id="utenteIndirizzo" /><br>
+        SPID: <input name="utenteSpid" id="utenteSpid" /><br>
+    
+        <button type="button" onclick="insertUtente()">Insert new utente</button>
     </form>
     <script src="script.js"></script>
 </body>
