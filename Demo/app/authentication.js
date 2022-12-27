@@ -45,7 +45,8 @@ router.post('', async function (req, res) {
         token: token,
         email: user.email,
         id: user._id,
-        self: user._id
+        self: user._id,
+        account_type: user.account_type
     });
 
 });

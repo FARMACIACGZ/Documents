@@ -3,7 +3,7 @@ const app=express();
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 const cors = require('cors')
-
+const router = express.Router();
 require('dotenv').config();
 
 
@@ -22,14 +22,13 @@ const authentication = require('./authentication.js');
 
 
 
-app.use('/', express.static(process.env.FRONTEND || 'static'));
+app.use(express.static(process.env.FRONTEND || 'static'));
 // If process.env.FRONTEND folder does not contain index.html then use the one from static
-app.use('/', express.static('static')); // expose also this folder
+app.use(express.static('static')); // expose also this folder
 app.use((req, res, next) => {
         console.log(req.method + ' ' + req.url)
         next()
 })
-
 
 
 
