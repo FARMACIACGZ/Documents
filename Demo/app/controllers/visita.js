@@ -49,6 +49,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('', async (req, res) => {
     let utenteUrl = req.body.utenteId;
+    console.log(utenteUrl);
     let luogoUrl = req.body.luogoId;
 
     if (!utenteUrl) {

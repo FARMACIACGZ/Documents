@@ -17,9 +17,8 @@ function pulsantiFissi(){
     
     if(loggedUser.account_type!=undefined){
 
-        li.innerHTML += `<button type="button" onclick="loadAcquisto();mostra('acquistoform')">Acquisto</button>`;
+        li.innerHTML += `<button type="button" onclick="loadAcquisti();mostra('acquistoform')">Acquisto</button>`;
         li.innerHTML += `<button type="button" onclick="loadVisite();mostra('visitaform')">Visita</button>`;
-        li.innerHTML += `<button type="button" onclick="loadChat();mostra('chatform')">Chat</button>`;
 
         if (loggedUser.account_type == "Autenticato" || loggedUser.account_type == "Medico" || loggedUser.account_type == "Farmacista") {
 
@@ -77,11 +76,9 @@ function nascondiTuttoTranne(id){
         document.getElementById('farmacistaform').style.display = 'none';
 
     }
-    alert('Prima');
-    if (id != 'visitaform')
+    if (id != 'visitaform' )
         document.getElementById('visitaform').style.display = 'none';
-    alert('DOpo');
-    if (id != 'nuovaVisita')
+    if (id != 'nuovaVisita' )
         document.getElementById('nuovaVisita').style.display = 'none';
 
     
@@ -109,8 +106,8 @@ function nascondiTuttoTranne(id){
     
     // if (id != 'chatform')
     //     document.getElementById('chatform').style.display = 'none';
-    // if (id != 'acquistoform')
-    //     document.getElementById('acquistoform').style.display = 'none';
+    if (id != 'acquistoform')
+        document.getElementById('acquistoform').style.display = 'none';
 }
 nascondiTuttoTranne('a');
 
@@ -220,7 +217,6 @@ function loadFarmaci(luogoSelf) {
                         li += `<td><button type="button" onclick="deleteFarmaco('${farmaco.self}','${luogoSelf}')">Delete farmaco</button></td>`;
                     }
                     if (loggedUser.self != undefined) {
-
                         li += `<td><button type="button" onclick="insertAcquisto('${farmaco.self}')">Acquista farmaco</button></td>`;
                     }
                     li += '</tr>';
@@ -535,6 +531,10 @@ function getUtentiAccountType(chi) {
             data.forEach((utente) => {
                 if (utente.account_type == chi) {
                     li = '<tr>' + modelloUtente(utente, li);
+                    if (loggedUser.self!=undefined) {
+                        li += `<td><button type="button" onclick="loadChat();mostra('chatform')">Chat</button><td>`;                        
+                    }
+
                     li += '</tr>';
                 }
             })
@@ -648,29 +648,111 @@ function deleteUtente(self) {
 //ACQUISTO
 
 function insertAcquisto(farmacoId) {
+    var acquistoData = Date.now();
+    var acquistoUtenteId = loggedUser.self;
     
-}
+    var acquistoFarmacoId = farmacoId;
+    url = '../acquisto?utenteId=' + loggedUser.self + '&token=' + loggedUser.token;
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+           
+            data: acquistoData,
+            utenteId: acquistoUtenteId,
+            farmacoId: acquistoFarmacoId
+        }),
+    })
+        .then((resp) => {
+            console.log(resp);
 
+            loadAcquisti();
+            mostra('acquistoform');
+            return;
+        })
+        .catch(error => console.error(error)); // If there is any error you will catch them here
+
+};
+function thAcquisto() {
+    let li;
+    li = '<th>Id:</th>';
+    li += '<th>Data acquisto</th>';
+    li += '<th> utente:</th>';
+    li += '<th>Farmaco:</th>';
+    li += thFarmaco();
+    return li;
+}
+function modelloAcquisto(acquisto,li) {
+    
+    li = '<td>' + acquisto.self + '</td>';
+    li += '<td>' + acquisto.data + '</td>';
+    li += '<td>' + acquisto.utenteId + '</td>';
+    li += '<td>' + acquisto.farmacoId + '</td>';
+
+    
+
+
+
+    return li;
+}
+function loadAcquisti() {
+
+    const ul = document.getElementById('acquisto'); // Get the list where we will place our authors
+   
+
+    url = '../acquisto?token=' + loggedUser.token;
+    let li = '<tr>' + thAcquisto() + '</tr>';
+    fetch(url)
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function (data) { 
+            data.forEach((acquisto) => {
+                
+                const urlFarmaco = '..' + acquisto.farmacoId;
+                fetch(urlFarmaco)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (farmaco) {
+                        // Here you get the data to modify as you please
+                        if (acquisto.utenteId == '/utente/' + loggedUser.self) {
+                            li += '<tr>' + modelloAcquisto(acquisto, li);
+
+                            li = modelloFarmaco(farmaco, li);
+
+
+                            li += '</tr>';
+                        }
+                        ul.innerHTML = li;
+                        
+
+                    })
+            
+            })
+
+        })
+        .catch(error => console.error(error));// If there is any error you will catch them here
+
+
+}
 
 //VISITA    
 function insertVisita() {
     var visitaData = document.getElementById("visitaData").value;
-  
-    fetch('../visita/', {
+    var visitaUtenteId = loggedUser.self;
+    var visitaLuogoId = farmaciaUser;
+    url = '../visita?utenteId=' + loggedUser.self + '&token=' + loggedUser.token;
+    fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             data: visitaData,
-            utenteId: loggedUser.self,
-            luogoId: farmaciaUser
+            utenteId: visitaUtenteId,
+            luogoId: visitaLuogoId
         }),
     })
         .then((resp) => {
-            alert("Completata");
             console.log(resp);
             
-            //loadVisite();
-            //mostra('visitaform');
+            loadVisite();
+            mostra('visitaform');
             return;
         })
         .catch(error => console.error(error)); // If there is any error you will catch them here
@@ -679,9 +761,11 @@ function insertVisita() {
 function thVisita() {
    let li;
     li = '<th>Id:</th>';
-    li += '<th>Data di nascita:</th>';
+    li += '<th>Data visita</th>';
     li += '<th> utente:</th>';
     li += '<th>luogo:</th>';
+    li += thUtente();
+    li+= thLuogo();
     return li;
 }
 function modelloVisita(visita) {
@@ -702,7 +786,8 @@ function loadVisite(){
         const ul = document.getElementById('visita'); // Get the list where we will place our authors
 
        
-        const url = '../visita/';
+         url = '../visita?utenteId=' + loggedUser.self + '&token=' + loggedUser.token;
+
 
         let li = '<tr>' + thVisita() + '</tr>';
         fetch(url)
@@ -712,54 +797,49 @@ function loadVisite(){
                 // console.log(data);
 
                 // Map through the results and for each run the code below
+                
+
                 data.forEach((visita)=>{
+                    
                     if(visita.utenteId == '/utente/'+loggedUser.self){
-                        li += '<tr>' + modelloVisita(visita);
-                        li += '</tr>';
+
+                        const urlLuogo = '..'+visita.luogoId;
+                        
+                        fetch(urlLuogo)
+                            .then((resp) => resp.json()) // Transform the data into json
+                            .then(function (luogo) {
+                                
+                                    
+                                    const url2 = '..' + visita.utenteId;
+
+                                    
+                                    if (luogo.type == 'Studio') {
+                                    fetch(url2)
+                                        .then((resp) => resp.json()) // Transform the data into json
+                                        .then(function (data) { // Here you get the data to modify as you please
+                                            
+                                            li += '<tr>' + modelloVisita(visita);
+
+
+                                            li = modelloUtente(data, li);
+                                            li = modelloLuogo(luogo, li);
+
+                                            
+                                            li += '</tr>';
+                                            ul.innerHTML = li;
+
+                                        })
+                                    .catch(error => console.error(error));// If there is any error you will catch them here 
+                                    }   
+                                
+                            })
                     }
                     
                 })
                 
 
-                ul.innerHTML = li;
+
                 
-                /*data.forEach((luogo) => {
-                    const url2 = '..' + luogo.utenteId;
-
-
-                    if (luogo.type == chi) {
-                        fetch(url2)
-                            .then((resp) => resp.json()) // Transform the data into json
-                            .then(function (data) { // Here you get the data to modify as you please
-                                li = '<tr>' + modelloLuogo(luogo, li);
-
-                                li = modelloUtente(data, li);
-                                let urlDeleteLuogo = luogo.self;
-                                if (luogo.type == "Farmacia") {
-                                    li += `<td><button type="button" onclick="loadFarmaci('${luogo.self}');changeFarmaciaUser('${luogo.utenteId}');mostra('farmacoform')">Vedi Farmaci</button></td>`;
-                                } else {
-                                    if (loggedUser.self != undefined) {
-                                        li += `<td><button type="button" onclick="mostra('nuovaVisita');changeFarmaciaUser('${luogo.self}')">Prenota visita</button></td>`;
-
-                                    }
-
-                                }
-                                if ('/utente/' + loggedUser.self == luogo.utenteId) {
-                                    li += `<td><button type="button" onclick="deleteLuogo('${urlDeleteLuogo}','${luogo.type}')">Delete luogo </button></td>`;
-
-
-                                }
-                                li += '</tr>';
-                                ul.innerHTML = li;
-
-                            })
-                            .catch(error => console.error(error));// If there is any error you will catch them here
-
-
-                    }
-
-
-                })*/
 
             })
             .catch(error => console.error(error));// If there is any error you will catch them here

@@ -4,20 +4,20 @@ const Farmaco = require('../models/farmaco'); // get our mongoose model
 const Luogo = require('../models/luogo'); 
 
 
-// router.get('/:id', async (req, res) => {
-//     let farmaco = await Farmaco.find({});
-//     // https://mongoosejs.com/docs/api.html#model_Model.findById
-//     res.status(200).json({
-//         self: '/farmaco/' + farmaco.id,
-//         luogo: '/luogo/' + dbEntry.luogoId,
-//         name: farmaco.name,
-//         modalitauso: farmaco.modalitauso,
-//         foglio_illustrativo: farmaco.foglio_illustrativo,
-//         scadenza: dbEntry.scadenza,
-//         prezzo: dbEntry.prezzo,
-//         quantita: dbEntry.quantita, 
-//     });
-// });
+router.get('/:id', async (req, res) => {
+    let farmaco = await Farmaco.findById(req.params.id);
+    // https://mongoosejs.com/docs/api.html#model_Model.findById
+    res.status(200).json({
+        self: '/farmaco/' + farmaco.id,
+        luogo: '/luogo/' + farmaco.luogoId,
+        name: farmaco.name,
+        modalitauso: farmaco.modalitauso,
+        foglio_illustrativo: farmaco.foglio_illustrativo,
+        scadenza: farmaco.scadenza,
+        prezzo: farmaco.prezzo,
+        quantita: farmaco.quantita, 
+    });
+});
 
 router.get('', async (req, res) => {
     // https://mongoosejs.com/docs/api.html#model_Model.find

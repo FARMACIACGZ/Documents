@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Acquisto = require('../models/acquisto'); // get our mongoose model
 const Utente = require('../models/utente'); // get our mongoose model
-const Farmacia = require('../models/farmaco'); // get our mongoose model
+const Farmaco = require('../models/farmaco'); // get our mongoose model
 
 
 
@@ -24,12 +24,10 @@ router.get('', async (req, res) => {
     acquisto = acquisto.map((dbEntry) => {
         return {
             self: '/acquisto/' + dbEntry.id,
-            utente: '/utente/' + dbEntry.utenteId,
-            farmacia_possiede_farmacoId: '/farmacia/' + dbEntry.farmaciaId,
-            data: dbEntry.data,
-            prezzo: dbEntry.prezzo,
-            effettuato: dbEntry.effettuato,
-            quantita: dbEntry.quantita
+            utenteId: '/utente/' + dbEntry.utenteId,
+            farmacoId: '/farmaco/' + dbEntry.farmacoId,
+            data: dbEntry.data
+           
              
         };
     });
@@ -41,15 +39,15 @@ router.get('', async (req, res) => {
 
 router.post('', async (req, res) => {
     let utenteUrl = req.body.utenteId;
-    let farmaciaUrl = req.body.farmaciaId;
+    let farmacoUrl = req.body.farmacoId;
 
     if (!utenteUrl) {
         res.status(400).json({ error: 'Utente not specified' });
         return;
     };
 
-    if (!farmaciaUrl) {
-        res.status(400).json({ error: 'Farmacia not specified' });
+    if (!farmacoUrl) {
+        res.status(400).json({ error: 'Farmaco not specified' });
         return;
     };
 
@@ -67,31 +65,28 @@ router.post('', async (req, res) => {
         return;
     };
 
-    let farmaciaId = farmaciaUrl.substring(farmaciaUrl.lastIndexOf('/') + 1);
-    let farmacia = null;
+    let farmacoId = farmacoUrl.substring(farmacoUrl.lastIndexOf('/') + 1);
+    let farmaco = null;
     try {
-        farmacia = await Farmacia.findById(farmaciaId).exec();
+        farmaco = await Farmaco.findById(farmacoId).exec();
     } catch (error) {
-        // CastError: Cast to ObjectId failed for value "11" at path "_id" for model "Farmacia"
+        // CastError: Cast to ObjectId failed for value "11" at path "_id" for model "Farmaco"
     }
 
-    if (farmacia == null) {
-        res.status(400).json({ error: 'Farmacia does not exist' });
+    if (farmaco == null) {
+        res.status(400).json({ error: 'Farmaco does not exist' });
         return;
     };
 
-    if ((await Acquisto.find({ farmaciaId: farmaciaId }).exec()).lenght > 0) {
-        res.status(409).json({ error: 'Farmacia already out' });
+    if ((await Acquisto.find({ farmacoId: farmacoId }).exec()).lenght > 0) {
+        res.status(409).json({ error: 'Farmaco already out' });
         return
     }
 
     let acquisto = new Acquisto({
         utenteId: utenteId,
-        farmaciaId: farmaciaId,
-        data: req.body.data,
-        prezzo: req.body.prezzo,
-        effettuato: req.body.effettuato,
-        quantita: req.body.quantita
+        farmacoId: farmacoId,
+        data: req.body.data
 
     });
 

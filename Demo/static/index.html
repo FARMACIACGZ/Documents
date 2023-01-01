@@ -428,6 +428,8 @@
             </table>
         </div>
     </form>
+
+    <!-- VISITA -->
     <form id="visitaform" style="display: none;">
         <br>
         <br>
@@ -439,7 +441,7 @@
     
     
     </form>
-   <form id="nuovaVisita" style="display: none;">
+   <form action='/visita' method='post' name="nuovaVisita" id="nuovaVisita" style="display: none;">
         <br>
         <br>
         <div id="inserisciVisita">
@@ -447,7 +449,18 @@
             <button onclick="insertVisita()">Prenota</button>
         </div>
    </form>
-
+    <!-- ACQUISTO -->
+    <form action="/acquisto" id="acquistoform" style="display: none;">
+        <br>
+        <br>
+        <h2>Acquisti:</h2>
+        <table id="acquisto" border="2"></table>
+    
+    
+    
+    
+    
+    </form>
     <script src="script.js"></script>
 </body>
 </html>

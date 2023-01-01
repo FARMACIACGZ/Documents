@@ -36,10 +36,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/utente', utente);
 app.use('/farmaco', farmaco);
+app.use('/luogo', luogo);
 app.use('/authentication', authentication);
 // app.use('/luogo', tokenChecker);
+app.use('/visita', tokenChecker);
+app.use('/acquisto', tokenChecker);
+app.use('/chat', tokenChecker);
+app.use('/ricetta', tokenChecker);
 
-app.use('/luogo', luogo);
 
 
 app.use('/visita', visita);
