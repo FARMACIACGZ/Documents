@@ -5,8 +5,11 @@ const farmacoSchema = new mongoose.Schema({
     
     name: String,
     modalitauso: String, 
-    foglio_illustrativo: String    
-
+    foglio_illustrativo: String,
+    scadenza: Date,
+    prezzo: Number,
+    quantita: Number,
+    luogoId: String
 
 });
 

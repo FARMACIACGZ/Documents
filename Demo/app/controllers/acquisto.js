@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Acquisto = require('../models/acquisto'); // get our mongoose model
 const Utente = require('../models/utente'); // get our mongoose model
-const Farmacia = require('../models/farmacia'); // get our mongoose model
+const Farmacia = require('../models/farmaco'); // get our mongoose model
 
 
 

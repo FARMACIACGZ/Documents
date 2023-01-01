@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Visita = require('../models/visita'); // get our mongoose model
 const Utente = require('../models/utente'); // get our mongoose model
-const UtenteMedico = require('../models/utente'); // get our mongoose model
+const Luogo = require('../models/luogo'); // get our mongoose model
 
 
 
@@ -24,29 +24,40 @@ router.get('', async (req, res) => {
     visita = visita.map((dbEntry) => {
         return {
             self: '/visita/' + dbEntry.id,
-            utente: '/utente/' + dbEntry.utenteId,
-            utenteMedico: '/utenteMedico/' + dbEntry.utenteMedicoId,
-            data: dbEntry.data,
-            accettata: dbEntry.accettata
+            utenteId: '/utente/' + dbEntry.utenteId,
+            luogoId: '/luogo/' + dbEntry.luogoId,
+            data: dbEntry.data
         };
     });
 
     res.status(200).json(visita);
 });
 
+router.get('/:id', async (req, res) => {
+    // https://mongoosejs.com/docs/api.html#model_Model.findById
+    let visita = await Visita.findById(req.params.id);
+    res.status(200).json({
+        self: '/luogo/' + visita.id,
+        utenteId: '/utente/' + visita.utenteId,
+        luogoId: '/luogo/' + visita.luogoId,
+        data: visita.data
+    });
+
+});
+
 
 
 router.post('', async (req, res) => {
     let utenteUrl = req.body.utenteId;
-    let utenteMedicoUrl = req.body.utenteMedicoId;
+    let luogoUrl = req.body.luogoId;
 
     if (!utenteUrl) {
         res.status(400).json({ error: 'Utente not specified' });
         return;
     };
 
-    if (!utenteMedicoUrl) {
-        res.status(400).json({ error: 'UtenteMedico not specified' });
+    if (!luogoUrl) {
+        res.status(400).json({ error: 'Luogo not specified' });
         return;
     };
 
@@ -64,29 +75,28 @@ router.post('', async (req, res) => {
         return;
     };
 
-    let utenteMedicoId = utenteMedicoUrl.substring(utenteMedicoUrl.lastIndexOf('/') + 1);
-    let utenteMedico = null;
+    let luogoId = luogoUrl.substring(luogoUrl.lastIndexOf('/') + 1);
+    let luogo = null;
     try {
-        utenteMedico = await UtenteMedico.findById(utenteMedicoId).exec();
+        luogo = await Luogo.findById(luogoId).exec();
     } catch (error) {
-        // CastError: Cast to ObjectId failed for value "11" at path "_id" for model "UtenteMedico"
+        // CastError: Cast to ObjectId failed for value "11" at path "_id" for model "Luogo"
     }
 
-    if (utenteMedico == null) {
-        res.status(400).json({ error: 'UtenteMedico does not exist' });
+    if (luogo == null) {
+        res.status(400).json({ error: 'Luogo does not exist' });
         return;
     };
 
-    if ((await Visita.find({ utenteMedicoId: utenteMedicoId }).exec()).lenght > 0) {
-        res.status(409).json({ error: 'UtenteMedico already out' });
+    if ((await Visita.find({ luogoId: luogoId }).exec()).lenght > 0) {
+        res.status(409).json({ error: 'Luogo already out' });
         return
     }
 
     let visita = new Visita({
         utenteId: utenteId,
-        utenteMedicoId: utenteMedicoId,
-        data: req.body.data,
-        accettata: req.body.accettata
+        luogoId: luogoId,
+        data: req.body.data
     });
 
     visita = await visita.save();

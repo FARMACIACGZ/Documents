@@ -9,15 +9,7 @@
 <body>
     <h1>FarmaciaCGZ</h1>
     <form action="" id="fisso">
-        <button type="button" onclick="loadFarmaci();mostra('farmacoform');">Farmaci</button>
-        <button type="button" onclick="loadUtenti();mostra('utenteform')">Utenti</button>
-        <button type="button" onclick="mostra('luogoform')">Studi medici</button>
-        <button type="button" onclick="mostra('acquistoform')">Acquisto</button>
-        <button type="button" onclick="mostra('chatform')">Chat</button>
-        <button type="button" onclick="mostra('farmaciaform')">Farmacie</button>
-        <button type="button" onclick="mostra('ricettaform')">Ricetta</button>
-        <button type="button" onclick="mostra('visitaform')">Visita</button>
-        <button type="button" onclick="mostra('loginform')">LogIn</button>
+        
 
     </form>
 
@@ -26,12 +18,155 @@
 
     <!-- LOGIN -->
     <form method="post" name="loginform" id="loginform" style="display: none;">
-        <span>Logged User:</span> <span id="loggedUser"></span>
-        <input name="email" value="michele.ghilardi@studenti.unitn.it" id="loginEmail" />
-        <input type="password" value="FarmaciaCGZ" id="loginPassword" />
-        <button type="button" onclick="login()">LogIn</button>
-        <h2>Log:</h2>
-        <ul id="log"></ul>
+        <br>
+        <br>
+        <button type="button" onclick="mostra('registraUtente')">Registrati</button>
+        <button type="button" onclick="mostra('mostraLogin')">Login</button>
+        <br>
+        <br>
+        <div id="registraUtente" style="display: none;">
+            <table border="2">
+                <tr>
+                    <td>
+        
+                        Name:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteName" id="utenteName" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Cognome:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteSurname" id="utenteSurname" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Data di nascita:
+        
+                    </td>
+                    <td>
+        
+                        <input type="date" name="utenteYear" id="utenteYear" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Codice fiscale:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteCF" id="utenteCF" /><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        email:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteEmail" id="utenteEmail" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Password:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utentePassword" id="utentePassword" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Tipo di account:
+                    </td>
+                    <td>
+        
+                        <input name="utenteAccount_type" id="utenteAccount_type" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+        
+                    <td>
+        
+                        Titolo di studio:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteTitolo_studio" id="utenteTitolo_studio" /><br>
+        
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Indirizzo:
+        
+                    </td>
+                    <td>
+        
+                        <input name="utenteIndirizzo" id="utenteIndirizzo" /><br>
+        
+                    </td>
+        
+                </tr>
+                <tr>
+                    <td>
+        
+                        SPID:
+                    </td>
+                    <td>
+        
+                        <input name="utenteSpid" id="utenteSpid" /><br>
+        
+                    </td>
+        
+                </tr>
+                <tr>
+                    <td>
+        
+                    </td>
+                    <td>
+        
+                        <button type="button" onclick="insertUtente()">Insert new utente</button>
+        
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="mostraLogin" style="display: none;">
+            <span>Logged User:</span> <span id="loggedUser"></span>
+            <input name="email" value="michele.ghilardi@studenti.unitn.it" id="loginEmail" />
+            <input type="password" value="FarmaciaCGZ" id="loginPassword" />
+            <button type="button" onclick="login()">LogIn</button>
+            <h2>Log:</h2>
+        <table border="2" id="log"></table>
+        </div>
     </form>
     
 
@@ -39,57 +174,105 @@
 
     <!-- FARMACO  -->
     <form action="/farmaco" method="post" name="farmacoform" id="farmacoform" style="display: none;">
-        <h2>Farmaci:</h2>
-        <ul id="farmaco"></ul>
-        <h2>Insert new farmaco:</h2>
-        <table>
-            <tr>
-                <td>
-                    
-                    Name:
+        <br>
+        <br>
+      
+        <button type="button" onclick="mostra('inserisciFarmaci')" id="farmacoformpulsante" style="display: none;">Inserisci nuovo farmaco</button>
+        
+        <div id="inserisciFarmaci">
+            <h2>Insert new farmaco:</h2>
+            <table border="2">
+                <tr>
+                    <td>
+        
+                        Name:
+        
+                    </td>
+                    <td>
+        
+                        <input name="name" id="farmacoName" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Modalità d'uso:
+        
+                    </td>
+                    <td>
+        
+                        <input name="modalitauso" id="farmacoModalitauso" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                        Foglio illustrativo:
+        
+                    </td>
+                    <td>
+        
+                        <input name="foglio_illustrativo" id="farmacoFoglio_illustrativo" /><br>
+        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                
+                        Scadenza:
+                
+                    </td>
+                    <td>
+                
+                        <input type="date" name="Scadenza" id="farmacoScadenza" /><br>
+                
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                
+                        Prezzo:
+                
+                    </td>
+                    <td>
+                
+                        <input name="Prezzo" id="farmacoPrezzo" /><br>
+                
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                
+                        Quantita:
+                
+                    </td>
+                    <td>
+                
+                        <input name="Quantita" id="farmacoQuantita" /><br>
+                
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+        
+                    </td>
+                    <td id="pulsanteInsertFarmaco">
+        
+        
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <br>
+        
+            <h2>Farmaci:</h2>
+            <table id="farmaco" border="2"></table>
+      
 
-                </td>
-                <td>
-
-                    <input name="name" id="farmacoName" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Modalità d'uso:
-
-                </td>
-                <td>
-
-                    <input name="modalitauso" id="farmacoModalitauso" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Foglio illustrativo:
-
-                </td>
-                <td>
-
-                    <input name="foglio_illustrativo" id="farmacoFoglio_illustrativo" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                </td>
-                <td>
-
-                    <button type="button" onclick="insertFarmaco()">Insert new farmaco</button>
-
-                </td>
-            </tr>
-        </table>
+        
         
 
     </form>
@@ -99,253 +282,171 @@
 
     <!-- UTENTE -->
     <form action="/utente" method="post" name="utenteform" id="utenteform" style="display: none;">
-        <h2>Pazienti:</h2>
-        <ul id="Utente"></ul>
-        <h2>Pazienti autenticati:</h2>
-        <ul id="Autenticato"></ul>
-        <h2>Medici:</h2>
-        <ul id="Medico"></ul>
-        <h2>Farmacisti:</h2>
-        <ul id="Farmacista"></ul>
-        <table>
-            <tr>
-                <td>
+        <br>
+        <br>
 
-                    Name:
-
-                </td>
-                <td>
-                    
-                    <input name="utenteName" id="utenteName" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Cognome:
-
-                </td>
-                <td>
-                           
-                    <input name="utenteSurname" id="utenteSurname" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
         
-                    Data di nascita: 
+        <button type="button" onclick="mostra('registraUtente')">Inserisci nuovo utente</button>
 
-                </td>
-                <td>
-
-                    <input type="date" name="utenteYear" id="utenteYear" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-       
-                    Codice fiscale: 
-
-                </td>
-                <td>
-
-                    <input name="utenteCF" id="utenteCF" /><br>
-                </td>
-            </tr>
-            <tr>
-                <td>
+        <br>
+        <br>
         
-                    email:
-
-                </td>
-                <td>
-
-                    <input name="utenteEmail" id="utenteEmail" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Password: 
-
-                </td>
-                <td>
-
-                    <input name="utentePassword" id="utentePassword" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Tipo di account:
-                </td>
-                <td>
-
-                    <input name="utenteAccount_type" id="utenteAccount_type" /><br>
-
-                </td>
-            </tr>
-            <tr>
-
-                <td>
         
-                    Titolo di studio:
-
-                </td>
-                <td>
-
-                    <input name="utenteTitolo_studio" id="utenteTitolo_studio" /><br>
-
-
-                </td>
-            </tr>
-            <tr>
-                <td>
+            <h2>Pazienti:</h2>
+            <table id="Utente" border="2"></table>
+            <h2>Pazienti autenticati:</h2>
+            <table id="Autenticato" border="2"></table>
+            
         
-                    Indirizzo:
-
-                </td>
-                <td>
-
-                    <input name="utenteIndirizzo" id="utenteIndirizzo" /><br>
-
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-        
-                    SPID:
-                </td>
-                <td>
-
-                    <input name="utenteSpid" id="utenteSpid" /><br>
-
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-
-                </td>
-                <td>
-      
-                    <button type="button" onclick="insertUtente()">Insert new utente</button>
-                    
-                </td>
-            </tr>
-        </table>
     
     </form>
-
-
-
-    <!-- LUOGO -->
-    <form action="/luogo" method="post" name="luogoform" id="luogoform" style="display: none;">
-        <h2>Studi :</h2>
-        <ul id="luogo"></ul>
-        <h2>Insert new luogo:</h2>
-        <table>
-            <tr>
-                <td>
-        
-                    Id:
-        
-                </td>
-                <td>
-
-                    <input name="luogoId" id="luogoId" /><br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-
-                    Indirizzo: 
-                    
-                </td>
-                <td>
-               
-                    <input name="luogoIndirizzo" id="luogoIndirizzo" /><br>
-
-                </td>
-
-            </tr>
-            <tr>
-
-                <td>
-
-                    Tipo:           
-
-                </td>
-                <td>
-
-                    <input name="luogoTipo" id="luogoTipo" /><br>
-                </td>
-
-            </tr>
-            <tr>
-
-                <td>
-
-                    Descrizione:
-                
-                </td>
-                <td>
-                
-                    <input name="luogoDescrizione" id="luogoDescrizione" /><br>
-
-                </td>
-
-            </tr>
-            <tr>
-
-                <td>
-
-                    Numero di telefono:
-
-                </td>
-                <td>
-                
-                    <input name="luogoNumTel" id="luogoNumTel" /><br>
-                
-                </td>
-
-            </tr>
-            <tr>
-
-                <td>
-
-                    Distanza: 
-
-                </td>
-                <td>
-                
-                    <input name="luogoDistanza" id="luogoDistanza" /><br>
-                    
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-
-                </td>
-                <td>
-
-                    <button type="button" onclick="insertLuogo()">Insert new luogo</button>
-
-                </td>
-            </tr>
-        </table>
+    <!-- MEDICI -->
+    <form id="medicoform" style="display: none;">
+        <br>
+        <br>
+        <h2>Medici:</h2>
+            <table id="Medico" border="2"></table>
        
+            
+        
+        
+    
     </form>
+    <!-- FARMACISTI -->
+    <form name="farmacistaform" id="farmacistaform" style="display: none;">
+        <br>
+        <br>
+            <h2>Farmacisti:</h2>
+            <table id="Farmacista" border="2"></table>
+        
+    
+    </form>
+    <!-- LUOGHI -->
+    <form action="/luogo" method="post" name="luogoform" id="luogoform" style="display: none;">
+        <br>
+        
+        <button type="button" onclick="mostra('inserisciLuogo')" id="luogoformpulsante" style="display: none;">Inserisci nuovo luogo</button>
+        <br>
+        <button type="button" onclick="loadStudi();mostra('mostraStudio')" >Studi medici</button>
+        <button type="button" onclick="loadFarmacie();mostra('mostraFarmacia')" >Farmacie</button>
 
+     
+                
+        <br>
+        <div id="mostraStudio" style="display: none;">
+            <h2>Studi :</h2>
+            <table id="Studio" border="2"></table>
+        </div>
+        <div id="mostraFarmacia" style="display: none;">
+            <h2>Farmacie :</h2>
+            <table  id="Farmacia" border="2"></table>
+        </div>
+        <div id="inserisciLuogo" style="display: none;">
+        
+            <h2>Insert new luogo:</h2>
+        
+            <table border="2">
+                <tr>
+                    <td>
 
+                        Indirizzo: 
+                        
+                    </td>
+                    <td>
+                
+                        <input name="luogoIndirizzo" id="luogoIndirizzo" /><br>
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+
+                        Tipo:           
+
+                    </td>
+                    <td>
+
+                        <input name="luogoTipo" id="luogoTipo" /><br>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+
+                        Descrizione:
+                    
+                    </td>
+                    <td>
+                    
+                        <input name="luogoDescrizione" id="luogoDescrizione" /><br>
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+
+                        Numero di telefono:
+
+                    </td>
+                    <td>
+                    
+                        <input name="luogoNumTel" id="luogoNumTel" /><br>
+                    
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+
+                        Distanza: 
+
+                    </td>
+                    <td>
+                    
+                        <input name="luogoDistanza" id="luogoDistanza" /><br>
+                        
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td id>
+
+                        <button type="button" onclick="insertLuogo()">Insert new luogo</button>
+
+                    </td>
+                </tr>
+            
+            </table>
+        </div>
+    </form>
+    <form id="visitaform" style="display: none;">
+        <br>
+        <br>
+        <h2>Visite:</h2>
+        <table id="visita" border="2"></table>
+    
+    
+    
+    
+    
+    </form>
+   <form id="nuovaVisita" style="display: none;">
+        <br>
+        <br>
+        <div id="inserisciVisita">
+            Data: <input type="date" id="visitaData"><br>
+            <button onclick="insertVisita()">Prenota</button>
+        </div>
+   </form>
 
     <script src="script.js"></script>
 </body>

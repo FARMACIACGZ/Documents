@@ -11,20 +11,12 @@ const Utente = require('../models/utente'); // get our mongoose model
  * https://cloud.google.com/blog/products/application-development/api-design-why-you-should-use-links-not-keys-to-represent-relationships-in-apis
  */
 router.get('', async (req, res) => {
-   let luogo;
-
-   if (req.query.utenteId)
-      luogo = await Luogo.find({
-         utenteId: req.query.utenteId
-      }).exec();
-
-   else
-      luogo = await Luogo.find({}).exec();
+   let luogo = await Luogo.find({});
 
    luogo = luogo.map((dbEntry) => {
       return {
          self: '/luogo/' + dbEntry.id,
-         utente: '/utente/' + dbEntry.utenteId,
+         utenteId: '/utente/' + dbEntry.utenteId,
          indirizzo: dbEntry.indirizzo,
          type: dbEntry.type,
          descrizione: dbEntry.descrizione,
@@ -36,7 +28,20 @@ router.get('', async (req, res) => {
    res.status(200).json(luogo);
 });
 
+router.get('/:id', async (req, res) => {
+   // https://mongoosejs.com/docs/api.html#model_Model.findById
+   let luogo = await Luogo.findById(req.params.id);
+   res.status(200).json({
+      self: '/luogo/' + luogo.id,
+      utenteId: '/utente/' + luogo.utenteId,
+      indirizzo: luogo.indirizzo,
+      type: luogo.type,
+      descrizione: luogo.descrizione,
+      numero_di_telefono: luogo.numero_di_telefono,
+      distanza: luogo.distanza,
+   });
 
+});
 
 router.post('', async (req, res) => {
    let utenteUrl = req.body.utenteId;
@@ -67,11 +72,12 @@ router.post('', async (req, res) => {
    }
 
    let luogo = new Luogo ({
-      utenteId: utenteId,
+      
       indirizzo: req.body.indirizzo,
       type: req.body.type,
       descrizione: req.body.descrizione,
       numero_di_telefono: req.body.numero_di_telefono,
+      utenteId: utenteId,
       distanza: req.body.distanza
    });
 
@@ -84,7 +90,7 @@ router.post('', async (req, res) => {
 
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id/?', async (req, res) => {
    let lending = await Luogo.findById(req.params.id).exec();
    if (!lending) {
       res.status(404).send()

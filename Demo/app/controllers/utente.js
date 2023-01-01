@@ -45,36 +45,6 @@ router.get('/:id', async (req, res) => {
 
 });
 
-const getUtenteByName = (req, res) => {
-    let name = req.params.name; //get the tea name
-    console.log(name);
-
-    //find the specific tea with that name
-    Utente.findOne({ name: name }, (err, data) => {
-        if (err || !data) {
-            return res.json({ message: "Utente doesn't exist." });
-        }
-        else return res.json(data); //return the tea object if found
-    });
-};
-router.get('/name/:name', getUtenteByName);
-
-
-
-
-const getUtenteByType = (req, res) => {
-    let type = req.params.account_type; //get the tea name
-    console.log(type);
-
-    //find the specific tea with that name
-    Utente.findOne({ account_type: type }, (err, data) => {
-        if (err || !data) {
-            return res.json({ message: "Utente doesn't exist." });
-        }
-        else return res.json(data); //return the tea object if found
-    });
-};
-router.get('/tipo/:account_type', getUtenteByType);
 
 
 router.get('', async (req, res) => {
@@ -119,7 +89,6 @@ router.post('', async (req, res) => {
      */
     res.location("/utente/" + utenteId).status(201).send();
 });
-
 
 
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript

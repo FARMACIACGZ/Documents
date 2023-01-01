@@ -5,8 +5,7 @@ const visitaSchema = new mongoose.Schema({
     
     data : Date,
     utenteId: String,
-    utenteMedicoId: String,
-    accettata: Boolean
+    luogoId: String
 
 
 

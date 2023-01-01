@@ -13,7 +13,7 @@ const UtenteMedico = require('../models/utente'); // get our mongoose model
 router.get('', async (req, res) => {
     let chat;
 
-    if (req.query.utenteId)
+    if (req.query.mittente)
         chat = await Chat.find({
             utenteId: req.query.utenteId
         }).exec();
@@ -25,7 +25,7 @@ router.get('', async (req, res) => {
         return {
             self: '/chat/' + dbEntry.id,
             mittente: '/utente/' + dbEntry.mittente,
-            destinatario: '/utenteMedico/' + dbEntry.destinatario,
+            destinatario: '/utente/' + dbEntry.destinatario,
             data: dbEntry.data,
             text_message: dbEntry.text_message
         };
