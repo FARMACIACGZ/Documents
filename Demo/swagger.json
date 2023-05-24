@@ -34,11 +34,643 @@
 
                 }
 
+            },
+            "post": {
+                "tags": [
+                    "Utente"
+                ],
+                "summary": "Post utenti in system",
+                "parameters": [
+                        {
+                        "in":"body",
+                        "name":"body",
+                        "description":"Api for users in the system",
+                        "required":true,
+                        "schema":{
+                            "$ref":"#/definitions/Utente"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Utente"
+                        }
+                    }
+                }
             }
             
-        
-
-
+        },
+        "/utente/{id}": {
+            "get": {
+                "tags": [
+                    "Utente"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Utente"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Utente"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Utente"
+                        }
+                    }
+                }
+            }
+        },
+        "/acquisto": {
+            "get": {
+                "tags": [
+                    "Acquisto"
+                ],
+                "summary": "Get all acquisti in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Acquisto"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Acquisto"
+                ],
+                "summary": "Post Acquisto in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for acquisti in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Acquisto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Acquisto"
+                        }
+                    }
+                }
+            }
+        },
+        "/acquisto/{id}": {
+            "get": {
+                "tags": [
+                    "Acquisto"
+                ],
+                "summary": "Get all acquisti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Acquisto"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Acquisto"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Acquisto"
+                        }
+                    }
+                }
+            }
+        },
+        "/chat": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get all chat in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Chat"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Post chat in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for chat in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Chat"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Chat"
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/{id}": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Chat"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Chat"
+                        }
+                    }
+                }
+            }
+        },
+        "/farmaco": {
+            "get": {
+                "tags": [
+                    "Farmaco"
+                ],
+                "summary": "Get all farmaco in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Farmaco"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Farmaco"
+                ],
+                "summary": "Post farmaco in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for farmaco in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Farmaco"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Farmaco"
+                        }
+                    }
+                }
+            }
+        },
+        "/farmaco/{id}": {
+            "get": {
+                "tags": [
+                    "Farmaco"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Farmaco"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Farmaco"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Farmaco"
+                        }
+                    }
+                }
+            }
+        },
+        "/luogo": {
+            "get": {
+                "tags": [
+                    "Luogo"
+                ],
+                "summary": "Get all luoghi in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Luogo"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Luogo"
+                ],
+                "summary": "Post luoghi in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for luoghi in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Luogo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Luogo"
+                        }
+                    }
+                }
+            }
+        },
+        "/luogo/{id}": {
+            "get": {
+                "tags": [
+                    "Luogo"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Luogo"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Luogo"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Luogo"
+                        }
+                    }
+                }
+            }
+        },
+        "/ricetta": {
+            "get": {
+                "tags": [
+                    "Ricetta"
+                ],
+                "summary": "Get all ricetta in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Ricetta"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Ricetta"
+                ],
+                "summary": "Post ricetta in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Ricetta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Ricetta"
+                        }
+                    }
+                }
+            }
+        },
+        "/ricetta/{id}": {
+            "get": {
+                "tags": [
+                    "Ricetta"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Ricetta"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Ricetta"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Ricetta"
+                        }
+                    }
+                }
+            }
+        },
+        "/visita": {
+            "get": {
+                "tags": [
+                    "Visita"
+                ],
+                "summary": "Get all visite in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Visita"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Visita"
+                ],
+                "summary": "Post utenti in system",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Visita"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Visita"
+                        }
+                    }
+                }
+            }
+        },
+        "/visita/{id}": {
+            "get": {
+                "tags": [
+                    "Visita"
+                ],
+                "summary": "Get all utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Visita"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Visita"
+                ],
+                "summary": "Delete utenti in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Api for users in the system",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Visita"
+                        }
+                    }
+                }
+            }
         }
         
         
@@ -59,7 +691,7 @@
                 "SPID"
 
             ],
-            "proprieties": {
+            "properties": {
                 "name": {
                     "type": "string"
                 },
@@ -79,15 +711,167 @@
                     "type": "string"
                 },
                 "account_type": {
-                    "type": "String"
+                    "type": "string"
                 },
                 "titolo_studio": {
-                    "type": "String"
+                    "type": "string"
                 },
                 "indirizzo": {
                     "type": "string"
-                },"SPID": {
-                    "type": "boolean"
+                 }
+            }
+        },
+        "Acquisto": {
+            "required": [
+                "data",
+                "utenteId",
+                "farmacoId"
+            ],
+            "properties": {
+                "data": {
+                    "type": "date"
+                },
+                "utenteId": {
+                    "type": "string"
+                },
+                "farmacoId": {
+                    "type": "string"
+                }
+            }
+        },
+        "Chat": {
+            "required": [
+                "data",
+                "mittente",
+                "destinatario",
+                "text_message"
+            ],
+            "properties": {
+                "data": {
+                    "type": "date"
+                },
+                "mittente": {
+                    "type": "string"
+                },
+                "destinatario": {
+                    "type": "string"
+                },
+                "text_message": {
+                    "type": "string"
+                }
+               
+            }
+        },
+        "Farmaco": {
+            "required": [
+                "name",
+                "modalitauso", 
+                "foglio_illustrativo",
+                "scadenza",
+                "prezzo",
+                "quantita",
+                "luogoId"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "modalitauso": {
+                    "type": "string"
+                },
+                "foglio_illustrativo": {
+                    "type": "string"
+                },
+                "scadenza": {
+                    "type": "date"
+                },
+                "prezzo": {
+                    "type": "number"
+                },
+                "quantita": {
+                    "type": "number"
+                },
+                "luogoId": {
+                    "type": "string"
+                }
+            }
+        },
+        "Luogo": {
+            "required": [
+                "indirizzo",
+                "type",
+                "descrizione",
+                "numero_di_telefono",    
+                "utenteId",
+                "distanza"
+            ],
+            "properties": {
+                "indirizzo": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "descrizione": {
+                    "type": "string"
+                },
+                "numero_di_telefono": {
+                    "type": "string"
+                },
+                "utenteId": {
+                    "type": "string"
+                },
+                "distanza": {
+                    "type": "number"
+                }
+            }
+        },
+        "Ricetta": {
+            "required": [
+                "data_ricetta",
+                "quantita",
+                "dose",
+                "periodo_inizio",
+                "periodo_fine",
+                "acquistoId"
+            ],
+            "properties": {
+                "data_ricetta": {
+                    "type": "string"
+                },
+                "quantita": {
+                    "type": "number"
+                },
+                "dose": {
+                    "type": "number"
+                },
+                "periodo_inizio": {
+                    "type": "string"
+                },
+                "periodo_fine": {
+                    "type": "string"
+                },
+                "acquistoId": {
+                    "type": "string"
+                }
+            }
+        },
+        "Visita": {
+            "required": [
+                "data" ,
+                "utenteId",
+                "luogoId"
+            ],
+            "properties": {
+                
+                "data": {
+                    "type": "date"
+                },
+                "utenteId": {
+                    "type": "string"
+                },
+                "luogoId": {
+                    "type": "string"
                 }
             }
         }
