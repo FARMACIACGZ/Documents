@@ -5,7 +5,8 @@ const visitaSchema = new mongoose.Schema({
     
     data : Date,
     utenteId: String,
-    luogoId: String
+    medicoId: String,
+    descrizione: String
 
 
 

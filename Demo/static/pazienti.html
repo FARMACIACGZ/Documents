@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./javascript/farmaco.js"></script>
+    <script src="script.js"></script>
+    <title>Document</title>
+</head>
+<body onload="intestazione();loadVisite()">
+    <div id="intestazione"></div>
+    <h3>Pazienti</h3>
+
+    <button onclick="mostra('pazienti_in_cura');nascondi('pazienti_completa')">Lista pazienti in cura</button>
+    <button onclick="nascondi('pazienti_in_cura');mostra('pazienti_completa');loadUtenti('ClientePaziente')">Lista pazienti completa</button>
+
+    <div id="pazienti_in_cura">
+        <h4>In cura</h4>
+        <table border="2">
+        
+            <tr><th>Nome:</th><th>Cognome</th><th>data di nascita</th><th>Codice Fiscale</th>Email<th>Indirizzo</th><th>SPID</th></tr>
+            <tbody id="visite"></tbody>
+        </table>
+    </div>
+    <div id="pazienti_completa" style="display: none;"><h4>Completa</h4>
+        <table border="2">
+        
+        <tr><th>Nome:</th><th>Cognome</th><th>data di nascita</th><th>Codice Fiscale</th><th>Email</th><th>Indirizzo</th><th>SPID</th></tr>
+        <tbody id="listaCompleta"></tbody>
+    </table></div>
+        
+      
+        
+        
+
+    </form>
+</body>
+</html>

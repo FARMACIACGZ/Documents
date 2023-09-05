@@ -3,12 +3,12 @@ const mongoose = require("mongoose"); //import mongoose
 // tea schema
 const luogoSchema = new mongoose.Schema({
     
+   nome: String,
    indirizzo: String,
    type: String,
+   distanza: Number,
    descrizione: String,
-   numero_di_telefono: String,    
-   utenteId: String,
-   distanza: Number
+   utenteId: String
 
 });
 

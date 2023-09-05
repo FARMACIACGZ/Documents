@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+</head>
+
+<body onload="intestazione();returnLuogo()">
+
+    <div id="intestazione"></div>
+    <h3>Informazioni studio medico</h3>
+    <div id="studio" style="display: none;">
+        <table border="2">
+            <th>Nome </th>
+            <th>Indirizzo:</th>
+            <th>Distanza:</th>
+            <th>Descrizione:</th>
+            <tbody id="studio_medico"></tbody>
+        </table>
+    </div>
+    <form method="post" name="registraLuogo" id="registraLuogo">
+        <div id="tidLuogo" style="display: none;">
+            <h4>Registra luogo</h4>
+            <table border="2">
+                <tr>
+                    <td>Nome luogo:</td>
+                    <td><input id="luogoNome" /><br></td>
+                </tr>
+                <tr>
+                    <td>Indirizzo luogo:</td>
+                    <td><input id="luogoIndirizzo" /><br></td>
+                </tr>
+
+
+                <tr>
+                    <td>Distanza:</td>
+                    <td><input id="luogoDistanza" /><br></td>
+                </tr>
+                <tr>
+                    <td>Descrizione luogo:</td>
+                    <td><input id="luogoDescrizione" /><br></td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+
+                        <button onclick="insertLuogo()">Inserisci utente e luogo</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</body>
+
+</html>

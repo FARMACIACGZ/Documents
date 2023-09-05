@@ -9,9 +9,10 @@ const utenteSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     account_type: String,
-    titolo_studio: String,
     indirizzo: String,
-    SPID: Boolean
+    SPID: Boolean,
+    titolo_di_studio: String,
+    biografia: String
     
 });
 

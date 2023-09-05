@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./javascript/farmaco.js"></script>
+    <script src="script.js"></script>
+    <title>Document</title>
+</head>
+<body onload="intestazione();loadLuogo('Farmacista')">
+    <div id="intestazione"></div>
+  
+    <h3>Farmacie disponibili</h3>
+        
+    <button onclick="mostra('lista');nascondi('mappa')">Lista</button>
+    <button onclick="mostra('mappa'); nascondi('lista')">Mappa</button>
+    <div id="lista">
+        <h4>Lista</h4>
+    <table border="2">
+        <tr><th>Indirizzo:</th><th>Tipo:</th><th>Descrizione:</th><th>Numero di telefono:</th><th>Distanza:</th><th></th></tr>
+        <tbody id="farmacie"></tbody>
+
+
+    </table>
+        </div>
+    <div id="mappa" style="display: none;">
+        <h4>Mappa</h4>
+    
+    </div>
+        
+
+  
+</body>
+</html>
