@@ -8,15 +8,9 @@ const UtenteMedico = require("../models/utente"); // get our mongoose model
  * Resource representation based on the following the pattern:
  * https://cloud.google.com/blog/products/application-development/api-design-why-you-should-use-links-not-keys-to-represent-relationships-in-apis
  */
-router.get("", async (req, res) => {
-  let chat;
-
-  if (req.query.mittente)
-    chat = await Chat.find({
-      utenteId: req.query.utenteId,
-    }).exec();
-  else chat = await Chat.find({}).exec();
-
+function mapUtentiModel(utenti, res) {
+ 
+  
   chat = chat.map((dbEntry) => {
     return {
       self: "/chat/" + dbEntry.id,
@@ -28,6 +22,19 @@ router.get("", async (req, res) => {
   });
 
   res.status(200).json(chat);
+}
+
+
+router.get("", async (req, res) => {
+  let chat;
+
+  if (req.query.mittente)
+    chat = await Chat.find({
+      utenteId: req.query.utenteId,
+    }).exec();
+  else chat = await Chat.find({}).exec();
+
+  
 });
 
 router.get("/utente/:idUtente", async (req, res) => {

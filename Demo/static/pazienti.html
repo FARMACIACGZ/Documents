@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./javascript/farmaco.js"></script>
+
     <script src="script.js"></script>
     <title>Document</title>
 </head>
-<body onload="intestazione();loadVisite()">
+<body onload="intestazione();loadUtenti('ClientePaziente');loadPazientiInCura();">
     <div id="intestazione"></div>
     <h3>Pazienti</h3>
 
     <button onclick="mostra('pazienti_in_cura');nascondi('pazienti_completa')">Lista pazienti in cura</button>
-    <button onclick="nascondi('pazienti_in_cura');mostra('pazienti_completa');loadUtenti('ClientePaziente')">Lista pazienti completa</button>
+    <button onclick="nascondi('pazienti_in_cura');mostra('pazienti_completa')">Lista pazienti completa</button>
 
     <div id="pazienti_in_cura">
         <h4>In cura</h4>

@@ -1,47 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const Utente = require('./models/utente'); // get our mongoose model
-const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-
+const Utente = require('./models/utente'); // Importa il modello Mongoose per l'utente
+const jwt = require('jsonwebtoken'); // Utilizzato per creare, firmare e verificare i token JWT
 
 // ---------------------------------------------------------
-// route to authenticate and get a new token
-// --------------------------------------------------------
+// Percorso per l'autenticazione e l'ottenimento di un nuovo token
+// ---------------------------------------------------------
 router.post('', async function (req, res) {
 
-
-    // find the user
+    // Trova l'utente nel database
     let user = await Utente.findOne({
         email: req.body.email
     }).exec();
 
-    // user not found
+    // Utente non trovato
     if (!user) {
         console.log("UTENTE NON TROVATO");
-        res.json({ success: false, message: 'Authentication failed. User not found.' });
+        res.json({ success: false, message: 'Autenticazione fallita. Utente non trovato.' });
         return;
     }
 
-    // check if password matches
-    if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+    // Verifica se la password corrisponde
+    if (user.password !== req.body.password) {
+        res.json({ success: false, message: 'Autenticazione fallita. Password errata.' });
         return;
     }
 
-    // if user is found and password is right create a token
+    // Se l'utente è stato trovato e la password è corretta, crea un token JWT
     var payload = {
         email: user.email,
         id: user._id
-        // other data encrypted in the token	
+        // Altri dati criptati nel token, se necessario
     }
+
     var options = {
-        expiresIn: 86400 // expires in 24 hours
+        expiresIn: 86400 // Scade in 24 ore (valore in secondi)
     }
+
+    // Crea il token JWT utilizzando la chiave segreta SUPER_SECRET da variabile d'ambiente
     var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
 
+    // Invia una risposta con il token e altre informazioni
     res.json({
         success: true,
-        message: 'Enjoy your token!',
+        message: 'Goditi il tuo token!',
         token: token,
         email: user.email,
         id: user._id,
@@ -50,7 +52,5 @@ router.post('', async function (req, res) {
     });
 
 });
-
-
 
 module.exports = router;

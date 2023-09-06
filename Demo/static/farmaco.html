@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,120 +8,133 @@
     <script src="script.js"></script>
     <title>Document</title>
 </head>
+
 <body onload="intestazione();loadFarmaci()">
     <div id="intestazione"></div>
 
     <!-- FARMACO  -->
-    
-    
 
-    
-    
+    <h2>Farmaci</h2>
+
+
+
     <div id="bottoniFarmaci" style="display: none;">
-        <button type="button" onclick="nascondi('inserisciFarmaci');mostra('mostraFarmaci')">Lista Farmaci</button>      
-        <button type="button" onclick="mostra('inserisciFarmaci');nascondi('mostraFarmaci')">Inserisci nuovo farmaco</button>
+        <button type="button" onclick="nascondi('inserisciFarmaci');mostra('mostraFarmaci')">Lista Farmaci</button>
+        <button type="button" onclick="mostra('inserisciFarmaci');nascondi('mostraFarmaci')">Inserisci nuovo
+            farmaco</button>
     </div>
     <form action="/farmaco" method="post" name="inserisciFarmaci" id="inserisciFarmaci" style="display: none;">
-            <h2>Insert new farmaco:</h2>
-            <table border="2">
-                <tr>
-                    <td>
-        
-                        Name:
-        
-                    </td>
-                    <td>
-        
-                        <input name="name" id="farmacoName" /><br>
-        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-        
-                        Modalità d'uso:
-        
-                    </td>
-                    <td>
-        
-                        <input name="modalitauso" id="farmacoModalitauso" /><br>
-        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-        
-                        Foglio illustrativo:
-        
-                    </td>
-                    <td>
-        
-                        <input name="foglio_illustrativo" id="farmacoFoglio_illustrativo" /><br>
-        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                
-                        Scadenza:
-                
-                    </td>
-                    <td>
-                
-                        <input type="date" name="Scadenza" id="farmacoScadenza" /><br>
-                
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                
-                        Prezzo:
-                
-                    </td>
-                    <td>
-                
-                        <input name="Prezzo" id="farmacoPrezzo" /><br>
-                
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                
-                        Quantita:
-                
-                    </td>
-                    <td>
-                
-                        <input name="Quantita" id="farmacoQuantita" /><br>
-                
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-        
-                    </td>
-                    <td id="pulsanteInsertFarmaco">
-        
-        
-                    </td>
-                </tr>
-            </table>
+        <h2>Insert new farmaco:</h2>
+        <table border="2">
+            <tr>
+                <td>
+
+                    Name:
+
+                </td>
+                <td>
+
+                    <input name="name" id="farmacoName" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    Modalità d'uso:
+
+                </td>
+                <td>
+
+                    <input name="modalitauso" id="farmacoModalitauso" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    Foglio illustrativo:
+
+                </td>
+                <td>
+
+                    <input name="foglio_illustrativo" id="farmacoFoglio_illustrativo" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    Scadenza:
+
+                </td>
+                <td>
+
+                    <input type="date" name="Scadenza" id="farmacoScadenza" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    Prezzo:
+
+                </td>
+                <td>
+
+                    <input name="Prezzo" id="farmacoPrezzo" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    Quantita:
+
+                </td>
+                <td>
+
+                    <input name="Quantita" id="farmacoQuantita" /><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td id="pulsanteInsertFarmaco">
+                    <button onclick="insertFarmaco()">Inserisci Farmaco</button>
+
+
+                </td>
+            </tr>
+        </table>
     </form>
 
-        <div id="mostraFarmaci">      
-            <h2>Tabella farmaci</h2>
-    
-            <table border="2">
-                <tr><th>Nome:</th><th>Modalità uso:</th><th>Foglio illustrativo:</th><th>Scadenza</th><th>Prezzo</th><th>Quantita</th><th>Nome farmacia</th></tr>
-                <tbody id="farmaco"></tbody>
+
+    <div id="mostraFarmaci">
+        <h3>Tabella farmaci</h3>
+
+        <table border="2">
+            <tr>
+                <th>Nome:</th>
+                <th>Modalità uso:</th>
+                <th>Foglio illustrativo:</th>
+                <th>Scadenza</th>
+                <th>Prezzo</th>
+                <th>Quantita</th>
+                <th></th>
+            </tr>
+            <tbody id="farmaco"></tbody>
 
 
-            </table>
-            
-        </div>
-        
-        
-      
+        </table>
+
+    </div>
+
+
+
 
 </body>
+
 </html>

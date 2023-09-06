@@ -8,8 +8,9 @@ const ricettaSchema = new mongoose.Schema({
     dose: Number,
     periodo_inizio: Date,
     periodo_fine: Date,
-    acquistoId: String,
-    descrizione: String
+    farmacoNome: String,
+    descrizione: String,
+    visitaId: String
 
 
 

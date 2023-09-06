@@ -1,87 +1,60 @@
 const express = require("express");
 const router = express.Router();
-const Utente = require("../models/utente"); // get our mongoose model
+const Utente = require("../models/utente"); // Importa il nostro modello mongoose Utente
 
-function modelloUtente(utente) {
-  let a = {
-    self: "/utente/" + utente.id,
-    name: utente.name,
-    surname: utente.surname,
-    year: utente.year,
-    CF: utente.CF,
-    email: utente.email,
-    password: utente.password,
-    account_type: utente.account_type,
-    indirizzo: utente.indirizzo,
-    SPID: utente.SPID,
-    titolo_di_studio: utente.titolo_di_studio,
-    biografia: utente.biografia
-  };
-  return a;
-}
-function mapModelloUtente(utente, res) {
-  utente = utente.map((entry) => {
+
+
+// Funzione per mappare un array di utenti in un formato specifico e inviarlo come JSON
+function mapUtentiModel(utenti, res) {
+ 
+  
+  utenti = utenti.map((entry) => {
     return {
       self: "/utente/" + entry.id,
       name: entry.name,
-    surname: entry.surname,
-    year: entry.year,
-    CF: entry.CF,
-    email: entry.email,
-    password: entry.password,
-    account_type: entry.account_type,
-    indirizzo: entry.indirizzo,
-    SPID: entry.SPID,
-    titolo_di_studio: entry.titolo_di_studio,
-    biografia: entry.biografia
+      surname: entry.surname,
+      year: entry.year,
+      CF: entry.CF,
+      email: entry.email,
+      password: entry.password,
+      account_type: entry.account_type,
+      indirizzo: entry.indirizzo,
+      SPID: entry.SPID,
+      titolo_di_studio: entry.titolo_di_studio,
+      biografia: entry.biografia,
     };
   });
 
-  res.status(200).json(utente);
+  res.status(200).json(utenti);
 }
+
+// Recupera un utente per ID
 router.get("/:id", async (req, res) => {
-  // https://mongoosejs.com/docs/api.html#model_Model.findById
   let utente = await Utente.findById(req.params.id);
-  res.status(200).json(modelloUtente(utente));
+  mapUtentiModel([utente], res);
+  
 });
+
+// Recupera utenti per tipo di account
 router.get("/type/:tipo", async (req, res) => {
-  // https://mongoosejs.com/docs/api.html#model_Model.findById
-  let utente = await Utente.find({ account_type: req.params.tipo});
-  utente = utente.map((entry) => {
-    return {
-      self: "/utente/" + entry.id,
-      name: entry.name,
-    surname: entry.surname,
-    year: entry.year,
-    CF: entry.CF,
-    email: entry.email,
-    password: entry.password,
-    account_type: entry.account_type,
-    indirizzo: entry.indirizzo,
-    SPID: entry.SPID,
-    titolo_di_studio: entry.titolo_di_studio,
-    biografia: entry.biografia
-    };
-  });
-
-  res.status(200).json(utente);
+  let utenti = await Utente.find({ account_type: req.params.tipo });
+  mapUtentiModel(utenti, res);
 });
 
-
-
+// Recupera tutti gli utenti o utenti con un'email specifica
 router.get("", async (req, res) => {
-  let utente;
+  let utenti;
 
-  if (req.query.email)
-    // https://mongoosejs.com/docs/api.html#model_Model.find
-    utente = await Utente.find({ email: req.query.email }).exec();
-  else utente = await Utente.find().exec();
+  if (req.query.email) {
+    utenti = await Utente.find({ email: req.query.email }).exec();
+  } else {
+    utenti = await Utente.find().exec();
+  }
 
-  mapModelloUtente(utente, res);
+  mapUtentiModel(utenti, res);
 });
 
-
-
+// Crea un nuovo utente
 router.post("", async (req, res) => {
   let utente = new Utente({
     name: req.body.name,
@@ -94,9 +67,10 @@ router.post("", async (req, res) => {
     indirizzo: req.body.indirizzo,
     SPID: req.body.SPID,
     titolo_di_studio: req.body.titolo_di_studio,
-    biografia: req.body.biografia
+    biografia: req.body.biografia,
   });
 
+  // Verifica l'validità dell'email
   if (
     !utente.email ||
     typeof utente.email != "string" ||
@@ -114,17 +88,15 @@ router.post("", async (req, res) => {
 
   let utenteId = utente.id;
   console.log("Utente id:" + utenteId);
-    /**
-   * Link to the newly created resource is returned in the Location header
-   * https://www.restapitutorial.com/lessons/httpmethods.html
-   */
+
+  // Il link alla risorsa appena creata viene restituito nell'header Location
   res
     .location("/utente/" + utenteId)
     .status(201)
     .send();
 });
 
-// https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+// Funzione per verificare il formato di un'email
 function checkIfEmailInString(text) {
   // eslint-disable-next-line
   var re =
@@ -132,6 +104,7 @@ function checkIfEmailInString(text) {
   return re.test(text);
 }
 
+// Elimina un utente per ID
 router.delete("/:id", async (req, res) => {
   let utente = await Utente.findById(req.params.id).exec();
   if (!utente) {

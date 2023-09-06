@@ -10,18 +10,29 @@ function getCookie(name) {
 
   return null;
 }
+const coockieAccount_type = getCookie("account_type");
+const coockieToken = getCookie("token");
+const coockieEmail = getCookie("email");
+const coockieUtenteId = getCookie("id");
+const coockieSelf = getCookie("self");
+const coockieLuogoId = getCookie("luogoId");
+
+function stampaCoockie() {
+  alert(coockieLuogoId);
+}
+
 function oggi() {
   var currentDate = new Date();
-var year = currentDate.getFullYear();
-var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-var day = String(currentDate.getDate()).padStart(2, '0');
-var hours = String(currentDate.getHours()).padStart(2, '0');
-var minutes = String(currentDate.getMinutes()).padStart(2, '0');
-var seconds = String(currentDate.getSeconds()).padStart(2, '0');
+  var year = currentDate.getFullYear();
+  var month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  var day = String(currentDate.getDate()).padStart(2, "0");
+  var hours = String(currentDate.getHours()).padStart(2, "0");
+  var minutes = String(currentDate.getMinutes()).padStart(2, "0");
+  var seconds = String(currentDate.getSeconds()).padStart(2, "0");
 
-var formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000+00:00`;
-console.log(formattedDateTime);
- return formattedDateTime;
+  var formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000+00:00`;
+  console.log(formattedDateTime);
+  return formattedDateTime;
 }
 
 function redirectToPage(paginaHtml) {
@@ -36,12 +47,6 @@ function nascondi(id) {
   document.getElementById(id).style.display = "none";
 }
 
-const coockieAccount_type = getCookie("account_type");
-const coockieToken = getCookie("token");
-const coockieEmail = getCookie("email");
-const coockieUtenteId = getCookie("id");
-const coockieSelf = getCookie("self");
-const coockieLuogoId = getCookie("luogoId");
 function intestazione() {
   // Seleziona l'elemento HTML in cui desideri inserire il nuovo codice
   var elemento = document.getElementById("intestazione");
@@ -152,6 +157,7 @@ function login(email, password) {
       document.cookie = "id=" + id;
       document.cookie = "self=" + self;
       document.cookie = "account_type=" + account_type;
+      returnLuogo();
 
       if (data.success == true) {
         redirectToPage("index_accesso.html");
@@ -267,20 +273,78 @@ function modelloUtente(utente) {
 
   return li;
 }
-function loadUtenti(tipo) {
-  var elemento = document.getElementById("listaCompleta");
-  var codiceHtml = "";
-  let url = "../utente/type/" + tipo ;
+function modelloMedico(utente) {
+  let li = "";
+  li += "<td>" + utente.name + "</td>";
+  li += "<td>" + utente.surname + "</td>";
+  li += "<td>" + utente.type + "</td>";
+
+  li += "<td>" + utente.titolo_di_studio + "</td>";
+  li += "<td>" + utente.biografia + "</td>";
+
+  return li;
+}
+
+function loadUtente(idUtente, elemento, codiceHtml) {
+  alert("entra");
+
+  let url = ".." + idUtente;
   fetch(url)
     .then((resp) => resp.json()) // Transform the data into json
     .then(function (data) {
       data.forEach((utente) => {
-        var idUtente = ''+utente.self;
-        codiceHtml += "<tr>" + modelloUtente(utente);
-        codiceHtml += '<td><button onclick="insertChat(\'' + idUtente + '\')">Aggiungi paziente</button></td></tr>';
-
+        var idUtente = "" + utente.self;
+        codiceHtml +=
+          "<tr>" +
+          modelloUtente(utente) +
+          "<td><button onclick=\"insertVisita('" +
+          idUtente +
+          "')\">Nuova visita</button></td><td><button onclick=\"chat('" +
+          idUtente +
+          "')\">chat</button><td><button onclick=\"prescrizione('" +
+          idUtente +
+          "')\">Prescrizione</button></td></td></tr>";
       });
+
       elemento.innerHTML += codiceHtml;
+    })
+    .catch((error) => console.error(error));
+}
+function loadUtenti(tipo) {
+  var elemento = document.getElementById("listaCompleta");
+
+  var codiceHtml = "";
+
+  let url = "../utente/type/" + tipo;
+  fetch(url)
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function (data) {
+      data.forEach((utente) => {
+        var idUtente = "" + utente.self;
+        codiceHtml +="<tr>" +modelloUtente(utente)
+          if(coockieAccount_type=="Medico"){
+            codiceHtml+="<td><button onclick=\"aggiungiPaziente('" +idUtente +"')\">Aggiungi paziente</button></td>";
+            elemento.innerHTML += codiceHtml;
+          }else{
+            let url = "../luogo" +utente.self;
+  
+            fetch(url)
+              .then((resp) => resp.json())
+              .then(function (data) {
+                data.forEach((luogo) => {
+                    codiceHtml += modelloLuogo(luogo);
+                    
+                    codiceHtml += "</tr>";
+                  });
+      elemento.innerHTML += codiceHtml;
+                 
+              })
+    
+      
+    }
+          
+      });
+     
     })
     .catch((error) => console.error(error));
 }
@@ -332,12 +396,11 @@ function modelloLuogo(luogo) {
 }
 
 function returnLuogo() {
+  
   let url = "../luogo/utente/" + coockieSelf;
   fetch(url)
-    .then((resp) => resp.json()) // Transform the data into json
+    .then((resp) => resp.json())
     .then(function (data) {
-      // Here you get the data to modify as you please
-
       if (data.message == "Luogo not found") {
         mostra("tidLuogo");
         nascondi("studio");
@@ -346,21 +409,147 @@ function returnLuogo() {
           mostra("studio");
           nascondi("tidLuogo");
 
+          document.cookie = "luogoId=" + luogo.self;
+
           var elemento = document.getElementById("studio_medico");
           var codiceHtml = modelloLuogo(luogo);
           elemento.innerHTML += codiceHtml;
         });
       }
     })
-    .catch((error) => console.error(error)); // If there is any error you will catch them here
+    .catch((error) => console.error(error));
 }
 
-function insertVisita() {
-  var visitaData = document.getElementById("visitaData").value;
+function loadLuogo(tipo) {
 
-  var visitaUtenteId = document.getElementById("visitaUtenteId").value;
-  var visitaMedicoId = document.getElementById("visitaMedicoId").value;
+  var elemento = document.getElementById("luogo");
+  var codiceHtml="";
+  let url = "../luogo/tipo/" + tipo;
+  
 
+  fetch(url)
+    .then((resp) => resp.json())
+    .then(function (data) {
+      data.forEach((luogo) => {
+        
+          codiceHtml += "<tr>"+modelloLuogo(luogo)+"</tr>";
+
+        });
+        elemento.innerHTML += codiceHtml;
+      })
+    .catch((error) => console.error(error));
+}
+function loadMedici(){
+
+}
+function modelloFarmaco(farmaco) {
+  let li = "";
+  li += "<td>" + farmaco.name + "</td>";
+  li += "<td>" + farmaco.modalitauso + "</td>";
+
+  li += "<td>" + farmaco.foglio_illustrativo + "</td>";
+  li += "<td>" + farmaco.scadenza + "</td>";
+  li += "<td>" + farmaco.prezzo + "</td>";
+  li += "<td>" + farmaco.quantita + "</td>";
+
+  return li;
+}
+
+function loadFarmaci() {
+  let url = "../farmaco";
+  if (coockieAccount_type == "Farmacista") {
+    mostra("bottoniFarmaci");
+    url += coockieLuogoId;
+  }
+
+  var elemento = document.getElementById("farmaco");
+  var codiceHtml = "";
+  fetch(url)
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function (data) {
+      data.forEach((farmaco) => {
+        // Here you get the data to modify as you please
+        codiceHtml += "<tr>" + modelloFarmaco(farmaco);
+        if (coockieAccount_type == "Farmacista") {
+          let pulsanteFarmaco = "deleteFarmaco('" + farmaco.self + "');";
+          codiceHtml +=
+            '<td><button onclick="' +
+            pulsanteFarmaco +
+            '">Elimina farmaco</button></td>';
+        }
+        if (coockieAccount_type == "ClientePaziente") {
+          codiceHtml += "<td><button> Acquista </button></td>";
+        }
+        if (coockieAccount_type == "Medico") {
+          codiceHtml += "<td><button> Prescrivi</button></td>";
+        }
+        codiceHtml += "</tr>";
+      });
+      elemento.innerHTML += codiceHtml;
+    })
+
+    .catch((error) => console.error(error));
+}
+
+
+function insertFarmaco() {
+  var farmacoName = document.getElementById("farmacoName").value;
+  var farmacoModalitauso = document.getElementById("farmacoModalitauso").value;
+  var farmacoFoglio_illustrativo = document.getElementById(
+    "farmacoFoglio_illustrativo"
+  ).value;
+  var farmacoScadenza = document.getElementById("farmacoScadenza").value;
+  var farmacoPrezzo = document.getElementById("farmacoPrezzo").value;
+  var farmacoQuantita = document.getElementById("farmacoQuantita").value;
+
+  var luogoId = coockieLuogoId.replace("/luogo/", "");
+
+  fetch("../farmaco", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: farmacoName,
+      modalitauso: farmacoModalitauso,
+      foglio_illustrativo: farmacoFoglio_illustrativo,
+      scadenza: farmacoScadenza,
+      prezzo: farmacoPrezzo,
+      quantita: farmacoQuantita,
+      luogoId: luogoId,
+    }),
+  })
+    .then((resp) => {
+      console.log(resp);
+      alert("Registrazione farmaco avvenuta con successo!");
+      redirectToPage("farmaco.html");
+      return;
+    })
+    .catch((error) => console.error(error));
+}
+function deleteFarmaco(farmacoId) {
+  alert("Entra");
+  let url = "../farmaco/" + farmacoId;
+  alert(url);
+  fetch(url, {
+    method: "DELETE",
+  })
+    .then((resp) => {
+      console.log(resp);
+      alert("Farmaco eliminato con successo!");
+      // Esegui altre operazioni o reindirizza l'utente a una pagina diversa
+      redirectToPage("farmaco.html");
+      return;
+    })
+    .catch((error) => console.error(error));
+}
+
+//VISITA
+function aggiungiPaziente(visitaUtenteId) {
+  var visitaData = oggi();
+
+  var visitaMedicoId = coockieSelf;
+  var descrizione = "Aggiungi paziente";
   fetch("../visita", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -374,10 +563,30 @@ function insertVisita() {
       console.log(resp);
 
       alert("Registrazione avvenuta con successo!");
-      redirectToPage("luogo.html");
+      redirectToPage("pazienti.html");
     })
     .catch((error) => console.error(error));
 }
+
+function loadPazientiInCura() {
+  let url = "../visita/" + coockieSelf;
+  var elemento = getElementById("visite");
+  var codiceHtml = "";
+
+  fetch(url)
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function (data) {
+      data.forEach((visita) => {
+        // Here you get the data to modify as you pleasetent
+        alert(visita.utenteId);
+        loadUtente(visita.utenteId, elemento, codiceHtml);
+      });
+      elemento.innerHTML += codiceHtml;
+    })
+
+    .catch((error) => console.error(error));
+}
+function insertVisita(visitaUtenteId) {}
 
 function loadVisite() {
   let url = "../visita/id/" + coockieSelf;
@@ -409,48 +618,218 @@ function modelloVisita(visita) {
   return li;
 }
 
-function insertChat(){
-  alert('entra');
-}
-
 function insertChat(idUtente) {
-
+  alert("Entra");
   let url = "../chat" + idUtente;
   alert(url);
   fetch(url)
     .then((resp) => resp.json()) // Transform the data into json
     .then(function (data) {
-      
       alert(data.message);
-      if (data.message == "Chat not found") {
-        var chatData = oggi();
 
-        var chatMittente = coockieSelf;
-        var chatDestinatario = idUtente;
-        var chatText_message = 'Paziente aggiunto';
+      var chatData = oggi();
 
-        fetch("../chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            mittente: chatMittente,
-            destinatario: chatDestinatario,
-            data: chatData,
-            text_message: chatText_message
-          }),
+      var chatMittente = coockieSelf;
+      var chatDestinatario = idUtente;
+      var chatText_message = "";
+
+      fetch("../chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mittente: chatMittente,
+          destinatario: chatDestinatario,
+          data: chatData,
+          text_message: chatText_message,
+        }),
+      })
+        .then((resp) => {
+          console.log(resp);
+
+          alert("Registrazione avvenuta con successo!");
+          redirectToPage("pazienti.html");
         })
-          .then((resp) => {
-            console.log(resp);
-
-            alert("Registrazione avvenuta con successo!");
-            redirectToPage("chat.html");
-          })
-          .catch((error) => console.error(error));
-      } else {
-        
-          alert('Paziente gia\' aggiunto');
-        
-      }
+        .catch((error) => console.error(error));
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
+
+// function insertVisita() {
+//   var visitaData = document.getElementById("visitaData").value;
+//   var visitaUtenteId = loggedUser.self;
+//   var visitaLuogoId = farmaciaUser;
+//   url = '../visita?utenteId=' + loggedUser.self + '&token=' + loggedUser.token;
+//   fetch(url, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({
+//           data: visitaData,
+//           utenteId: visitaUtenteId,
+//           luogoId: visitaLuogoId
+//       }),
+//   })
+//       .then((resp) => {
+//           console.log(resp);
+
+//           loadVisite();
+//           mostra('visitaform');
+//           return;
+//       })
+//       .catch(error => console.error(error)); // If there is any error you will catch them here
+
+// };
+// function thVisita() {
+//  let li;
+//   li = '<th>Id:</th>';
+//   li += '<th>Data visita</th>';
+//   li += '<th> utente:</th>';
+//   li += '<th>luogo:</th>';
+//   li += thUtente();
+//   li+= thLuogo();
+//   return li;
+// }
+// function modelloVisita(visita) {
+//   let li;
+//   li = '<td>' + visita.self + '</td>';
+//   li += '<td>' + visita.data + '</td>';
+//   li += '<td>' + visita.utenteId + '</td>';
+//   li += '<td>' + visita.luogoId + '</td>';
+
+//   return li;
+// }
+// function loadVisite(){
+
+//       const ul = document.getElementById('visita'); // Get the list where we will place our authors
+
+//        url = '../visita?utenteId=' + loggedUser.self + '&token=' + loggedUser.token;
+
+//       let li = '<tr>' + thVisita() + '</tr>';
+//       fetch(url)
+//           .then((resp) => resp.json()) // Transform the data into json
+//           .then(function (data) { // Here you get the data to modify as you please
+
+//               // console.log(data);
+
+//               // Map through the results and for each run the code below
+
+//               data.forEach((visita)=>{
+
+//                   if(visita.utenteId == '/utente/'+loggedUser.self){
+
+//                       const urlLuogo = '..'+visita.luogoId;
+
+//                       fetch(urlLuogo)
+//                           .then((resp) => resp.json()) // Transform the data into json
+//                           .then(function (luogo) {
+
+//                                   const url2 = '..' + visita.utenteId;
+
+//                                   if (luogo.type == 'Studio') {
+//                                   fetch(url2)
+//                                       .then((resp) => resp.json()) // Transform the data into json
+//                                       .then(function (data) { // Here you get the data to modify as you please
+
+//                                           li += '<tr>' + modelloVisita(visita);
+
+//                                           li = modelloUtente(data, li);
+//                                           li = modelloLuogo(luogo, li);
+
+//                                           li += '</tr>';
+//                                           ul.innerHTML = li;
+
+//                                       })
+//                                   .catch(error => console.error(error));// If there is any error you will catch them here
+//                                   }
+
+//                           })
+//                   }
+
+//               })
+
+//           })
+//           .catch(error => console.error(error));// If there is any error you will catch them here
+
+// }
+
+//ACQUISTO
+
+function insertAcquisto(farmacoId) {
+  var acquistoData = Date.now();
+  var acquistoUtenteId = loggedUser.self;
+
+  var acquistoFarmacoId = farmacoId;
+  url =
+    "../acquisto?utenteId=" + loggedUser.self + "&token=" + loggedUser.token;
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      data: acquistoData,
+      utenteId: acquistoUtenteId,
+      farmacoId: acquistoFarmacoId,
+    }),
+  })
+    .then((resp) => {
+      console.log(resp);
+
+      loadAcquisti();
+      mostra("acquistoform");
+      return;
+    })
+    .catch((error) => console.error(error)); // If there is any error you will catch them here
+}
+
+function modelloAcquisto(acquisto) {
+  let li = "";
+
+  li += "<td>" + acquisto.data + "</td>";
+
+
+  return li;
+}
+function modelloFarmacoAcquistato(farmaco) {
+  let li = "";
+  li += "<td>" + farmaco.name + "</td>";
+ 
+  li += "<td>" + farmaco.prezzo + "</td>";
+  li += "<td>" + farmaco.quantita + "</td>";
+
+  return li;
+}
+function loadFarmaco(idFarmaco) {
+  var elemento = document.getElementById("acquisti"); // Get the list where we will place our authors 
+  var codiceHtml = "";
+  let url = ".." + idFarmaco; alert(url); 
+  fetch(url) 
+  .then((resp) => resp.json()) // Transform the data into json 
+  .then(function (data) { data.forEach((farmaco) => { // Here you get the data to modify as you please 
+   
+    codiceHtml += modelloFarmacoAcquistato(farmaco); 
+  }); 
+  elemento.innerHTML += codiceHtml;
+})
+  
+  .catch((error) => console.error(error));
+  } 
+  
+function loadAcquisti() { 
+  
+  var elemento = document.getElementById("acquisti"); // Get the list where we will place our authors 
+  var codiceHtml = "";
+  
+  url = "../acquisto";
+  
+  fetch(url) .then((resp) => resp.json()) // Transform the data into json 
+  .then(function (data) { data.forEach((acquisto) => { 
+    codiceHtml += "<tr>" + modelloAcquisto(acquisto); 
+ 
+   loadFarmaco(acquisto.farmacoId);
+  
+      
+    });
+    codiceHtml += "</tr>";
+    elemento.innerHTML = codiceHtml;
+  })
+  .catch((error) => console.error(error)); // If there is any error you will catch them here
+  }
+

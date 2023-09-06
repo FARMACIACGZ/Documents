@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./javascript/farmaco.js"></script>
+
     <script src="script.js"></script>
     <title>Document</title>
 </head>
-<body onload="intestazione();loadLuogo('Farmacista')">
+<body onload="intestazione();loadUtenti('Medico')">
     <div id="intestazione"></div>
     
     <h3>Medici</h3>
@@ -18,7 +18,9 @@
     <div id="lista"><h4>Lista</h4>
     <table border="2">
         <tr><th>Nome</th><th>Cognome</th><th>Tipo</th><th>Titolo di studio</th><th>Nome Luogo</th><th>Indirizzo:</th><th>Tipo:</th><th>Descrizione:</th><th>Numero di telefono:</th><th>Distanza:</th><th></th></tr>
-        <tbody id="medici"></tbody>
+        <tbody id="listaCompleta" >
+           
+        </tbody>
 
 
     </table>

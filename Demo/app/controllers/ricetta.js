@@ -25,7 +25,7 @@ router.get('', async (req, res) => {
         return {
             self: '/ricetta/' + dbEntry.id,
             visita: '/visita/' + dbEntry.visitaId,
-            farmacoId: '/farmaco/' + dbEntry.farmacoId,
+            farmacoNome: dbEntry.farmacoNome,
             data_ricetta: dbEntry.data_ricetta,
             quantita: dbEntry.quantita,
             dose:dbEntry.dose,
@@ -42,17 +42,13 @@ router.get('', async (req, res) => {
 
 router.post('', async (req, res) => {
     let visitaUrl = req.body.visitaId;
-    let farmacoUrl = req.body.farmacoId;
 
     if (!visitaUrl) {
         res.status(400).json({ error: 'Visita not specified' });
         return;
     };
 
-    if (!farmacoUrl) {
-        res.status(400).json({ error: 'Farmaco not specified' });
-        return;
-    };
+    
 
     let visitaId = visitaUrl.substring(visitaUrl.lastIndexOf('/') + 1);
     let visita = null;
@@ -68,27 +64,15 @@ router.post('', async (req, res) => {
         return;
     };
 
-    let farmacoId = farmacoUrl.substring(farmacoUrl.lastIndexOf('/') + 1);
-    let farmaco = null;
-    try {
-        farmaco = await Farmaco.findById(farmacoId).exec();
-    } catch (error) {
-        // CastError: Cast to ObjectId failed for value "11" at path "_id" for model "Farmaco"
-    }
+   
 
-    if (farmaco == null) {
-        res.status(400).json({ error: 'Farmaco does not exist' });
-        return;
-    };
+   
 
-    if ((await Ricetta.find({ farmacoId: farmacoId }).exec()).lenght > 0) {
-        res.status(409).json({ error: 'Farmaco already out' });
-        return
-    }
+    
 
     let ricetta = new Ricetta({
         visitaId: visitaId,
-        farmacoId: farmacoId,
+        farmacoNome: req.body.farmacoNome,
         data_ricetta: req.body.data_ricetta,
         quantita: req.body.quantita,
         dose: req.body.dose,
