@@ -799,7 +799,7 @@ function modelloFarmacoAcquistato(farmaco) {
 function loadFarmaco(idFarmaco) {
   var elemento = document.getElementById("acquisti"); // Get the list where we will place our authors 
   var codiceHtml = "";
-  let url = ".." + idFarmaco; alert(url); 
+  let url = ".." + idFarmaco;  
   fetch(url) 
   .then((resp) => resp.json()) // Transform the data into json 
   .then(function (data) { data.forEach((farmaco) => { // Here you get the data to modify as you please 
@@ -817,7 +817,7 @@ function loadAcquisti() {
   var elemento = document.getElementById("acquisti"); // Get the list where we will place our authors 
   var codiceHtml = "";
   
-  url = "../acquisto";
+  url = "../acquisto?token="+coockieToken;
   
   fetch(url) .then((resp) => resp.json()) // Transform the data into json 
   .then(function (data) { data.forEach((acquisto) => { 

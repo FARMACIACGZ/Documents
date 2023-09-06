@@ -47,7 +47,7 @@ app.use("/authentication", authentication);
 
 // Middleware per la verifica del token JWT
 // app.use("/visita", tokenChecker);
-// app.use("/acquisto", tokenChecker);
+app.use("/acquisto", tokenChecker);
 
 app.use("/ricetta", tokenChecker);
 
